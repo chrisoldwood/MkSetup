@@ -39,12 +39,16 @@ private:
 	CEditBox	m_ebFileName;
 	CCheckBox	m_ckProgIcon;
 	CCheckBox	m_ckDeskIcon;
+	CEditBox	m_ebIconName;
+	CEditBox	m_ebIconDesc;
 
 	//
 	// Message handlers.
 	//
 	virtual void OnInitDialog();
 	virtual bool OnOk();
+
+	void OnFileIcon();
 };
 
 /******************************************************************************
