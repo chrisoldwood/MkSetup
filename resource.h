@@ -41,6 +41,9 @@
 #define IDC_GROUP                       1092
 #define IDC_DESK_ICON                   1093
 #define IDC_FILE_NAME                   1094
+#define IDC_AUTHOR                      1094
+#define IDC_ICON_NAME                   1097
+#define IDC_ICON_DESC                   1098
 #define IDD_MAIN                        5000
 #define IDD_ABOUT                       5001
 #define IDC_STATIC                      -1
@@ -52,7 +55,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         168
-#define _APS_NEXT_CONTROL_VALUE         1097
+#define _APS_NEXT_CONTROL_VALUE         1099
 #define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif
