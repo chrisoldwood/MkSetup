@@ -67,7 +67,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /WX /Gm /GX /ZI /Od /I "..\wcl" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX"AppHeaders.hpp" /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /WX /Gm /GX /ZI /Od /I "..\wcl" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR /YX"AppHeaders.hpp" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x809 /d "_DEBUG"
@@ -98,10 +98,6 @@ SOURCE=.\AppCmds.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\AppDlg.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\AppToolBar.cpp
 # End Source File
 # Begin Source File
@@ -110,11 +106,27 @@ SOURCE=.\AppWnd.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\FilePropsDlg.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MkSetup.rc
 # End Source File
 # Begin Source File
 
 SOURCE=.\MkSetupApp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\ProjCfgDlg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SetupDoc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SetupView.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -130,10 +142,6 @@ SOURCE=.\AppCmds.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\AppDlg.hpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\AppHeaders.hpp
 # End Source File
 # Begin Source File
@@ -146,11 +154,31 @@ SOURCE=.\AppWnd.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\FileProps.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\FilePropsDlg.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MkSetupApp.hpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ProjCfgDlg.hpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Resource.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SetupDoc.hpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SetupView.hpp
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -169,5 +197,9 @@ SOURCE=.\App.rcv
 SOURCE=.\Toolbar.bmp
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\TODO.txt
+# End Source File
 # End Target
 # End Project
