@@ -19,7 +19,7 @@
 *******************************************************************************
 */
 
-class CAppCmds : public CCmdControl
+class CAppCmds : public CSDICmds
 {
 public:
 	//
@@ -33,7 +33,20 @@ public:
 	//
 
 	// File menu.
+	void OnFileNew();
+	void OnFileOpen();
+	void OnFileSave();
+	void OnFileSaveAs();
+	void OnFileClose();
+	void OnFileOpenMRU(uint iCmdID);
 	void OnFileExit();
+
+	// Edit menu.
+	void OnEditAddFile();
+	void OnEditAddFiles();
+	void OnEditFileProps();
+	void OnEditRemoveFile();
+	void OnEditProjCfg();
 
 	// Help menu.
 	void OnHelpAbout();
@@ -42,10 +55,25 @@ public:
 	// UI handlers.
 	//
 
+	// File menu.
+	void OnUIFileSave();
+	void OnUIFileSaveAs();
+	void OnUIFileClose();
+	void OnUIFileOpenMRU();
+
+	// Edit menu.
+	void OnUIEditAddFile();
+	void OnUIEditAddFiles();
+	void OnUIEditFileProps();
+	void OnUIEditRemoveFile();
+	void OnUIEditProjCfg();
+
 protected:
 	//
-	// Internal methods.
+	// Template methods..
 	//
+	virtual void OnFileCreated(CSDIDoc& oDoc);
+	virtual void OnFileOpened(CSDIDoc& oDoc);
 };
 
 /******************************************************************************

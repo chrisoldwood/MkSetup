@@ -63,6 +63,8 @@ CSetupDoc::CSetupDoc()
 
 CSetupDoc::~CSetupDoc()
 {
+	// Cleanup file list.
+	m_aoFiles.DeleteAll();
 }
 
 /******************************************************************************
@@ -122,6 +124,72 @@ bool CSetupDoc::Load()
 		m_strProgGroup = oScript.ReadString("Main", "ProgGroup", m_strProgGroup);
 		m_bNewGroup    = oScript.ReadBool  ("Main", "NewGroup",  m_bNewGroup   );
 		m_bDeskIcon    = oScript.ReadBool  ("Main", "DeskIcon",  m_bDeskIcon   );
+
+		// Read file list.
+		int nFiles = oScript.ReadInt("Files", "Count", 0);
+
+		for (int i = 0; i < nFiles; ++i)
+		{
+			CString strEntry, strFileName;
+
+			strEntry.Format("File[%d]", i);
+
+			// Read filename.
+			strFileName = oScript.ReadString("Files", strEntry, "");
+
+			if (strFileName == "")
+				continue;
+
+			// Create file props object and add to collection.
+			CFileProps* pFileProps = new CFileProps(strFileName);
+
+			pFileProps->m_bProgIcon = false;
+			pFileProps->m_bDeskIcon = false;
+
+			m_aoFiles.Add(pFileProps);
+		}
+
+		// Read shortcuts list.
+		nFiles = oScript.ReadInt("Shortcuts", "Count", 0);
+
+		for (i = 0; i < nFiles; ++i)
+		{
+			CString strEntry, strFileName;
+
+			strEntry.Format("Shortcut[%d]", i);
+
+			// Read filename.
+			strFileName = oScript.ReadString("Shortcuts", strEntry, "");
+
+			// Find file and object and set flag.
+			CFileProps* pFileProps = FindFile(strFileName);
+
+			ASSERT(pFileProps != NULL);
+
+			if (pFileProps != NULL)
+				pFileProps->m_bProgIcon = true;
+		}
+
+		// Read desktop icons list.
+		nFiles = oScript.ReadInt("DeskIcons", "Count", 0);
+
+		for (i = 0; i < nFiles; ++i)
+		{
+			CString strEntry, strFileName;
+
+			strEntry.Format("DeskIcon[%d]", i);
+
+			// Read filename.
+			strFileName = oScript.ReadString("DeskIcons", strEntry, "");
+
+			// Find file and object and set flag.
+			CFileProps* pFileProps = FindFile(strFileName);
+
+			ASSERT(pFileProps != NULL);
+
+			if (pFileProps != NULL)
+				pFileProps->m_bDeskIcon = true;
+		}
 	}
 	catch (CFileException& e)
 	{
@@ -147,8 +215,124 @@ bool CSetupDoc::Load()
 
 bool CSetupDoc::Save()
 {
-	// Reset status.
-	m_bModified = false;
+	try
+	{
+		CIniFile oScript(m_Path);
+
+		// File is read-only?
+		if ( (m_Path.Exists()) && (m_Path.ReadOnly()) )
+			throw CFileException(CFileException::E_READ_ONLY, m_Path);
+
+		// Read the .ini file version.
+		oScript.WriteString("Version", "Version", CUR_FILE_VER);
+
+		// Save project settings.
+		oScript.WriteString("Main", "Title",     m_strTitle    );
+		oScript.WriteString("Main", "Product",   m_strProduct  );
+		oScript.WriteString("Main", "DefFolder", m_strDefFolder);
+		oScript.WriteBool  ("Main", "ProgIcon",  m_bProgIcon   );
+		oScript.WriteBool  ("Main", "AllUsers",  m_bAllUsers   );
+		oScript.WriteString("Main", "ProgGroup", m_strProgGroup);
+		oScript.WriteBool  ("Main", "NewGroup",  m_bNewGroup   );
+		oScript.WriteBool  ("Main", "DeskIcon",  m_bDeskIcon   );
+
+		// Write file list.
+		oScript.DeleteSection("Files");
+		oScript.WriteInt("Files", "Count", 0);
+
+		for (int i = 0, c = 0; i < m_aoFiles.Size(); ++i, ++c)
+		{
+			CString strEntry;
+
+			strEntry.Format("File[%d]", c);
+
+			// Write filename.
+			oScript.WriteString("Files", strEntry, m_aoFiles[i]->m_strFileName);
+		}
+
+		oScript.WriteInt("Files", "Count", c);
+
+		// Write shortcuts list.
+		oScript.DeleteSection("Shortcuts");
+		oScript.WriteInt("Shortcuts", "Count", 0);
+
+		for (i = 0, c = 0; i < m_aoFiles.Size(); ++i)
+		{
+			CFileProps* pFileProps = m_aoFiles[i];
+
+			if (pFileProps->m_bProgIcon)
+			{
+				CString strEntry;
+
+				strEntry.Format("Shortcut[%d]", c);
+
+				// Write filename.
+				oScript.WriteString("Shortcuts", strEntry, pFileProps->m_strFileName);
+
+				++c;
+			}
+		}
+
+		oScript.WriteInt("Shortcuts", "Count", c);
+
+		// Write desktop icons list.
+		oScript.DeleteSection("DeskIcons");
+		oScript.WriteInt("DeskIcons", "Count", 0);
+
+		for (i = 0, c = 0; i < m_aoFiles.Size(); ++i)
+		{
+			CFileProps* pFileProps = m_aoFiles[i];
+
+			if (pFileProps->m_bDeskIcon)
+			{
+				CString strEntry;
+
+				strEntry.Format("DeskIcon[%d]", c);
+
+				// Write filename.
+				oScript.WriteString("DeskIcons", strEntry, pFileProps->m_strFileName);
+
+				++c;
+			}
+		}
+
+		oScript.WriteInt("DeskIcons", "Count", c);
+
+		// Reset status.
+		m_bModified = false;
+	}
+	catch (CFileException& e)
+	{
+		// Notify user.
+		App.m_AppWnd.AlertMsg(e.ErrorText());
+		return false;
+	}
 
 	return true;
+}
+
+/******************************************************************************
+** Method:		FindFile()
+**
+** Description:	Find a file in the list by its filename.
+**
+** Parameters:	strFileName		The file to find.
+**
+** Returns:		The file object or NULL.
+**
+*******************************************************************************
+*/
+
+CFileProps* CSetupDoc::FindFile(const CString& strFileName)
+{
+	// For all files...
+	for (int i = 0; i < m_aoFiles.Size(); ++i)
+	{
+		CFileProps* pFileProps = m_aoFiles[i];
+
+		if (pFileProps->m_strFileName == strFileName)
+			return pFileProps;
+	}
+
+	return NULL;
 }

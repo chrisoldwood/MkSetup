@@ -47,7 +47,8 @@ const char* CMakeSetupApp::INI_FILE_VER = "1.0";
 */
 
 CMakeSetupApp::CMakeSetupApp()
-	: CApp(m_AppWnd, m_AppCmds)
+	: CSDIApp(m_AppWnd, m_AppCmds)
+	, m_strLastDir(CPath::CurrentDir())
 {
 
 }
@@ -86,15 +87,26 @@ bool CMakeSetupApp::OnOpen()
 	// Set the app title.
 	m_strTitle = "Make Setup";
 
-	// Load settings.
-	LoadConfig();
-	
 	// Load the toolbar bitmap.
 	m_rCmdControl.CmdBitmap().LoadRsc(IDR_APPTOOLBAR);
+
+	// Set the .INI file path.
+	m_oIniFile.m_strPath  = CPath::ApplicationDir();
+	m_oIniFile.m_strPath += "MkSetup.ini";
+
+	// Load app settings.
+	LoadConfig();
+	
+	// Load the MRUList.
+	m_MRUList.Load(m_oIniFile);
 
 	// Create the main window.
 	if (!m_AppWnd.Create())
 		return false;
+
+	// Move to last position.
+	if ( (m_iCmdShow == SW_SHOWNORMAL) && (m_rcAppWnd.Empty() == false) )
+		m_AppWnd.Move(m_rcAppWnd);
 
 	// Show it.
 	m_AppWnd.Show(m_iCmdShow);
@@ -102,7 +114,7 @@ bool CMakeSetupApp::OnOpen()
 	// Update UI.
 	m_AppCmds.UpdateUI();
 
-	return true;
+	return CSDIApp::OnOpen();
 }
 
 /******************************************************************************
@@ -119,8 +131,13 @@ bool CMakeSetupApp::OnOpen()
 
 bool CMakeSetupApp::OnClose()
 {
+	CSDIApp::OnClose();
+
 	// Save settings.
 	SaveConfig();
+
+	// Save MRU list.
+	m_MRUList.Save(m_oIniFile);
 
 	return true;
 }
@@ -141,6 +158,10 @@ void CMakeSetupApp::LoadConfig()
 {
 	// Read the file version.
 	CString strVer = m_oIniFile.ReadString("Version", "Version", INI_FILE_VER);
+
+	// Read UI settings.
+	m_rcAppWnd   = m_oIniFile.ReadRect  ("Main", "Window",  CRect(0,0,0,0));
+	m_strLastDir = m_oIniFile.ReadString("Main", "LastDir", m_strLastDir);
 }
 
 /******************************************************************************
@@ -159,4 +180,8 @@ void CMakeSetupApp::SaveConfig()
 {
 	// Write the file version.
 	m_oIniFile.WriteString("Version", "Version", INI_FILE_VER);
+
+	// Write UI settings.
+	m_oIniFile.WriteRect  ("Main", "Window",  m_rcAppWnd);
+	m_oIniFile.WriteString("Main", "LastDir", m_strLastDir);
 }

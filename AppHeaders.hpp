@@ -31,12 +31,14 @@
 #include "Resource.h"
 
 // App data classes.
+#include "FileProps.hpp"
+#include "SetupDoc.hpp"
 
 // App GUI classes.
 #include "AppCmds.hpp"
 #include "AppToolBar.hpp"
-#include "AppDlg.hpp"
 #include "AppWnd.hpp"
+#include "SetupView.hpp"
 #include "MkSetupApp.hpp"
 
 #endif //APPHEADERS_HPP

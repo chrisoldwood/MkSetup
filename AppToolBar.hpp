@@ -31,6 +31,10 @@ public:
 	//
 	// Members.
 	//
+	CCmdButton	m_NewBtn;
+	CCmdButton	m_OpenBtn;
+	CCmdButton	m_SaveBtn;
+
 	CCmdButton	m_btnHelp;
 };
 

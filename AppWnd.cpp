@@ -23,7 +23,7 @@
 */
 
 CAppWnd::CAppWnd()
-	: CDlgFrame(IDR_APPICON, m_AppDlg, false)
+	: CSDIFrame(IDR_APPICON)
 {
 }
 
@@ -72,8 +72,27 @@ void CAppWnd::OnCreate(const CRect& rcClient)
 	m_StatusBar.Create(*this, IDC_STATUS_BAR, rcClient);
 	StatusBar(&m_StatusBar);
 
-	m_AppDlg.RunModeless(*this);
-
 	// Call base class.
-	CDlgFrame::OnCreate(rcClient);
+	CSDIFrame::OnCreate(rcClient);
+}
+
+/******************************************************************************
+** Method:		OnQueryClose()
+**
+** Description:	Check if the app can close.
+**
+** Parameters:	None.
+**
+** Returns:		true or false.
+**
+*******************************************************************************
+*/
+
+bool CAppWnd::OnQueryClose()
+{
+	// Save windows final position.
+	App.m_rcAppWnd = Placement();
+
+	// Close the app if the file was closed.
+	return App.m_AppCmds.CloseFile();
 }

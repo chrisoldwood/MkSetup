@@ -19,7 +19,7 @@
 *******************************************************************************
 */
 
-class CAppWnd : public CDlgFrame
+class CAppWnd : public CSDIFrame
 {
 public:
 	//
@@ -35,7 +35,6 @@ public:
 	//
 	// Members.
 	//
-	CAppDlg		m_AppDlg;
 	CFrameMenu	m_Menu;
 	CAppToolBar	m_ToolBar;
 	CStatusBar	m_StatusBar;
@@ -57,6 +56,7 @@ protected:
 	// Message processors.
 	//
 	virtual void OnCreate(const CRect& rcClient);
+	virtual bool OnQueryClose();
 };
 
 /******************************************************************************

@@ -37,18 +37,28 @@ public:
 	virtual bool Save();
 
 	//
+	// Helper methods.
+	//
+	CFileProps* FindFile(const CString& strFileName);
+
+	// Template shorthands.
+	typedef TPtrArray<CFileProps> CFileList;
+
+	//
 	// Members.
 	//
-	bool	m_bModified;
+	bool		m_bModified;		// Document modified?
 
-	CString	m_strTitle;
-	CString	m_strProduct;
-	CString	m_strDefFolder;
-	bool	m_bProgIcon;
-	bool	m_bAllUsers;
-	CString	m_strProgGroup;
-	bool	m_bNewGroup;
-	bool	m_bDeskIcon;
+	CString		m_strTitle;			// Setup window title.
+	CString		m_strProduct;		// Product name.
+	CString		m_strDefFolder;		// Default folder.
+	bool		m_bProgIcon;		// Create program icons?
+	bool		m_bAllUsers;		// Install for all users?
+	CString		m_strProgGroup;		// Default program group name.
+	bool		m_bNewGroup;		// Create a new group?
+	bool		m_bDeskIcon;		// Create a desktop icon?
+
+	CFileList	m_aoFiles;			// List of files to install.
 
 private:
 	//

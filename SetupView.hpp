@@ -27,13 +27,22 @@ public:
 	//
 	CSetupView(CSetupDoc& rDoc);
 	~CSetupView();
-	
+
+	//
+	// Methods.
+	//
+	bool        IsFileSelected() const;
+	CFileProps* GetSelection() const;
+
+	void RefreshFileList();
+	void RefreshFile(const CFileProps* pFileProps);
+
+private:	
 	//
 	// Members.
 	//
 	CListView	m_lvFiles;
 
-protected:
 	// Child window ID.
 	enum { IDC_FILES = 100 };
 
@@ -42,6 +51,13 @@ protected:
 	//
 	virtual void OnCreate(const CRect& rcClient);
 	virtual void OnResize(int iFlag, const CSize& rNewSize);
+	LRESULT OnListSelChange(NMHDR& oHdr);
+	LRESULT OnListDoubleClick(NMHDR& oHdr);
+
+	//
+	// Internal methods.
+	//
+	CSetupDoc& Doc();
 };
 
 /******************************************************************************
@@ -50,5 +66,22 @@ protected:
 **
 *******************************************************************************
 */
+
+inline CSetupDoc& CSetupView::Doc()
+{
+	return static_cast<CSetupDoc&>(m_Doc);
+}
+
+inline bool CSetupView::IsFileSelected() const
+{
+	return m_lvFiles.IsSelection();
+}
+
+inline CFileProps* CSetupView::GetSelection() const
+{
+	ASSERT(IsFileSelected());
+
+	return (CFileProps*)m_lvFiles.ItemPtr(m_lvFiles.Selection());
+}
 
 #endif // SETUPVIEW_HPP
