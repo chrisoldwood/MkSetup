@@ -35,6 +35,7 @@ CProjCfgDlg::CProjCfgDlg()
 	DEFINE_CTRL_TABLE
 		CTRL(IDC_TITLE,		&m_ebTitle   )
 		CTRL(IDC_PRODUCT,	&m_ebProduct )
+		CTRL(IDC_AUTHOR,	&m_ebAuthor  )
 		CTRL(IDC_FOLDER,	&m_ebFolder  )
 		CTRL(IDC_PROG_ICON, &m_ckProgIcon)
 		CTRL(IDC_ALL_USERS, &m_ckAllUsers)
@@ -66,6 +67,7 @@ void CProjCfgDlg::OnInitDialog()
 	// Initialise controls.
 	m_ebTitle.Text(m_pDoc->m_strTitle);
 	m_ebProduct.Text(m_pDoc->m_strProduct);
+	m_ebAuthor.Text(m_pDoc->m_strAuthor);
 	m_ebFolder.Text(m_pDoc->m_strDefFolder);
 	m_ckProgIcon.Check(m_pDoc->m_bProgIcon);
 	m_ckAllUsers.Check(m_pDoc->m_bAllUsers);
@@ -91,6 +93,7 @@ bool CProjCfgDlg::OnOk()
 	// Get values from controls.
 	m_pDoc->m_strTitle     = m_ebTitle.Text();
 	m_pDoc->m_strProduct   = m_ebProduct.Text();
+	m_pDoc->m_strAuthor    = m_ebAuthor.Text();
 	m_pDoc->m_strDefFolder = m_ebFolder.Text();
 	m_pDoc->m_bProgIcon    = m_ckProgIcon.IsChecked();
 	m_pDoc->m_bAllUsers    = m_ckAllUsers.IsChecked();

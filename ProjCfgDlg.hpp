@@ -38,6 +38,7 @@ protected:
 	//
 	CEditBox	m_ebTitle;
 	CEditBox	m_ebProduct;
+	CEditBox	m_ebAuthor;
 	CEditBox	m_ebFolder;
 	CCheckBox	m_ckProgIcon;
 	CCheckBox	m_ckAllUsers;
