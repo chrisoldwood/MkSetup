@@ -105,7 +105,7 @@ bool CMakeSetupApp::OnOpen()
 		return false;
 
 	// Move to last position.
-	if ( (m_iCmdShow == SW_SHOWNORMAL) && (m_rcAppWnd.Empty() == false) )
+	if (ShowNormal() && !m_rcLastPos.Empty())
 		m_AppWnd.Move(m_rcAppWnd);
 
 	// Show it.
