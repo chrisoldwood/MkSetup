@@ -169,7 +169,7 @@ bool CSetupDoc::Load()
 		// Read shortcuts list.
 		nFiles = oScript.ReadInt("Shortcuts", "Count", 0);
 
-		for (i = 0; i < nFiles; ++i)
+		for (int i = 0; i < nFiles; ++i)
 		{
 			CString strEntry, strFileName;
 
@@ -190,7 +190,7 @@ bool CSetupDoc::Load()
 		// Read desktop icons list.
 		nFiles = oScript.ReadInt("DeskIcons", "Count", 0);
 
-		for (i = 0; i < nFiles; ++i)
+		for (int i = 0; i < nFiles; ++i)
 		{
 			CString strEntry, strFileName;
 
@@ -258,13 +258,15 @@ bool CSetupDoc::Save()
 		oScript.DeleteSection("Files");
 		oScript.WriteInt("Files", "Count", 0);
 
-		for (int i = 0, c = 0; i < m_aoFiles.Size(); ++i, ++c)
+		int nCount = 0;
+
+		for (int i = 0; i < m_aoFiles.Size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
 			CString strEntry, strValue;
 
-			strEntry.Format("File[%d]", c);
+			strEntry.Format("File[%d]", nCount);
 
 			// Generate file entry value.
 			strValue  = pFileProps->m_strFileName;
@@ -273,15 +275,19 @@ bool CSetupDoc::Save()
 
 			// Write filename.
 			oScript.WriteString("Files", strEntry, strValue);
+
+			++nCount;
 		}
 
-		oScript.WriteInt("Files", "Count", c);
+		oScript.WriteInt("Files", "Count", nCount);
 
 		// Write shortcuts list.
 		oScript.DeleteSection("Shortcuts");
 		oScript.WriteInt("Shortcuts", "Count", 0);
 
-		for (i = 0, c = 0; i < m_aoFiles.Size(); ++i)
+		nCount = 0;
+
+		for (int i = 0; i < m_aoFiles.Size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
@@ -289,22 +295,24 @@ bool CSetupDoc::Save()
 			{
 				CString strEntry;
 
-				strEntry.Format("Shortcut[%d]", c);
+				strEntry.Format("Shortcut[%d]", nCount);
 
 				// Write filename.
 				oScript.WriteString("Shortcuts", strEntry, pFileProps->m_strFileName);
 
-				++c;
+				++nCount;
 			}
 		}
 
-		oScript.WriteInt("Shortcuts", "Count", c);
+		oScript.WriteInt("Shortcuts", "Count", nCount);
 
 		// Write desktop icons list.
 		oScript.DeleteSection("DeskIcons");
 		oScript.WriteInt("DeskIcons", "Count", 0);
 
-		for (i = 0, c = 0; i < m_aoFiles.Size(); ++i)
+		nCount = 0;
+
+		for (int i = 0; i < m_aoFiles.Size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
@@ -312,16 +320,16 @@ bool CSetupDoc::Save()
 			{
 				CString strEntry;
 
-				strEntry.Format("DeskIcon[%d]", c);
+				strEntry.Format("DeskIcon[%d]", nCount);
 
 				// Write filename.
 				oScript.WriteString("DeskIcons", strEntry, pFileProps->m_strFileName);
 
-				++c;
+				++nCount;
 			}
 		}
 
-		oScript.WriteInt("DeskIcons", "Count", c);
+		oScript.WriteInt("DeskIcons", "Count", nCount);
 
 		// Reset status.
 		m_bModified = false;
