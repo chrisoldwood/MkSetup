@@ -43,6 +43,16 @@ private:
 	//
 	CListView	m_lvFiles;
 
+	// Columns.
+	enum
+	{
+		FILE_NAME,
+		PROG_ICON,
+		DESK_ICON,
+		ICON_NAME,
+		ICON_DESC,
+	};
+
 	// Child window ID.
 	enum { IDC_FILES = 100 };
 
