@@ -51,6 +51,7 @@ public:
 
 	CString		m_strTitle;			// Setup window title.
 	CString		m_strProduct;		// Product name.
+	CString		m_strAuthor;		// Product author name.
 	CString		m_strDefFolder;		// Default folder.
 	bool		m_bProgIcon;		// Create program icons?
 	bool		m_bAllUsers;		// Install for all users?
@@ -64,6 +65,7 @@ private:
 	//
 	// Constants.
 	//
+	static const char* OLD_FILE_VER;
 	static const char* CUR_FILE_VER;
 };
 

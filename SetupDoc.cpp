@@ -22,7 +22,8 @@
 *******************************************************************************
 */
 
-const char* CSetupDoc::CUR_FILE_VER = "1.0";
+const char* CSetupDoc::OLD_FILE_VER = "1.0";
+const char* CSetupDoc::CUR_FILE_VER = "1.1";
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -40,6 +41,7 @@ CSetupDoc::CSetupDoc()
 	: m_bModified(false)
 	, m_strTitle("Product Setup")
 	, m_strProduct("Product")
+	, m_strAuthor("Author")
 	, m_strDefFolder("Product Folder")
 	, m_bProgIcon(true)
 	, m_bAllUsers(false)
@@ -112,12 +114,13 @@ bool CSetupDoc::Load()
 		if (strVer == "")
 			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
-		if (strVer != CUR_FILE_VER)
+		if ( (strVer != CUR_FILE_VER) && (strVer != OLD_FILE_VER) )
 			throw CFileException(CFileException::E_VERSION_INVALID, m_Path);
 
 		// Load project settings.
 		m_strTitle     = oScript.ReadString("Main", "Title",     m_strTitle    );
 		m_strProduct   = oScript.ReadString("Main", "Product",   m_strProduct  );
+		m_strAuthor    = oScript.ReadString("Main", "Author",    m_strAuthor   );
 		m_strDefFolder = oScript.ReadString("Main", "DefFolder", m_strDefFolder);
 		m_bProgIcon    = oScript.ReadBool  ("Main", "ProgIcon",  m_bProgIcon   );
 		m_bAllUsers    = oScript.ReadBool  ("Main", "AllUsers",  m_bAllUsers   );
@@ -130,21 +133,35 @@ bool CSetupDoc::Load()
 
 		for (int i = 0; i < nFiles; ++i)
 		{
-			CString strEntry, strFileName;
+			CString strEntry, strValue;
 
 			strEntry.Format("File[%d]", i);
 
-			// Read filename.
-			strFileName = oScript.ReadString("Files", strEntry, "");
+			// Read filename + shortcut name + description.
+			strValue = oScript.ReadString("Files", strEntry, "");
 
-			if (strFileName == "")
+			CStrArray astrFields;
+
+			// Split into file + name + description.
+			CStrTok::Split(strValue, ',', astrFields);
+
+			// Must have at least a filename.
+			if ( (astrFields.Size() < 1) || (astrFields[0] == "") )
 				continue;
 
 			// Create file props object and add to collection.
-			CFileProps* pFileProps = new CFileProps(strFileName);
+			CFileProps* pFileProps = new CFileProps(astrFields[0]);
 
-			pFileProps->m_bProgIcon = false;
-			pFileProps->m_bDeskIcon = false;
+			pFileProps->m_bProgIcon   = false;
+			pFileProps->m_bDeskIcon   = false;
+			pFileProps->m_strIconName = "";
+			pFileProps->m_strIconDesc = "";
+
+			if (astrFields.Size() >= 2)
+				pFileProps->m_strIconName = astrFields[1];
+
+			if (astrFields.Size() >= 3)
+				pFileProps->m_strIconDesc = astrFields[2];
 
 			m_aoFiles.Add(pFileProps);
 		}
@@ -229,6 +246,7 @@ bool CSetupDoc::Save()
 		// Save project settings.
 		oScript.WriteString("Main", "Title",     m_strTitle    );
 		oScript.WriteString("Main", "Product",   m_strProduct  );
+		oScript.WriteString("Main", "Author",    m_strAuthor   );
 		oScript.WriteString("Main", "DefFolder", m_strDefFolder);
 		oScript.WriteBool  ("Main", "ProgIcon",  m_bProgIcon   );
 		oScript.WriteBool  ("Main", "AllUsers",  m_bAllUsers   );
@@ -242,12 +260,19 @@ bool CSetupDoc::Save()
 
 		for (int i = 0, c = 0; i < m_aoFiles.Size(); ++i, ++c)
 		{
-			CString strEntry;
+			CFileProps* pFileProps = m_aoFiles[i];
+
+			CString strEntry, strValue;
 
 			strEntry.Format("File[%d]", c);
 
+			// Generate file entry value.
+			strValue  = pFileProps->m_strFileName;
+			strValue += "," + pFileProps->m_strIconName;
+			strValue += "," + pFileProps->m_strIconDesc;
+
 			// Write filename.
-			oScript.WriteString("Files", strEntry, m_aoFiles[i]->m_strFileName);
+			oScript.WriteString("Files", strEntry, strValue);
 		}
 
 		oScript.WriteInt("Files", "Count", c);
