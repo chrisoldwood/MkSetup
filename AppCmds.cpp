@@ -282,7 +282,7 @@ void CAppCmds::OnEditAddFile()
 	CFileProps* pFileProps = new CFileProps(strFile.FileName());
 
 	// Add to document.
-	pDoc->m_aoFiles.Add(pFileProps);
+	pDoc->m_aoFiles.push_back(pFileProps);
 	pDoc->m_bModified = true;
 
 	// Refresh view.
@@ -330,7 +330,7 @@ void CAppCmds::OnEditAddFiles()
 		CFileProps* pFileProps = new CFileProps(strFile.FileName());
 
 		// Add to document.
-		pDoc->m_aoFiles.Add(pFileProps);
+		pDoc->m_aoFiles.push_back(pFileProps);
 
 		// Remember folder.
 		App.m_strLastDir = strFile.Directory();
@@ -411,7 +411,7 @@ void CAppCmds::OnEditRemoveFile()
 	ASSERT(pFileProps != NULL);
 
 	// Remove from collection.
-	pDoc->m_aoFiles.Delete(pDoc->m_aoFiles.Find(pFileProps));
+	pDoc->m_aoFiles.erase(std::find(pDoc->m_aoFiles.begin(), pDoc->m_aoFiles.end(), pFileProps));
 	pDoc->m_bModified = true;
 
 	// Refresh view.

@@ -42,7 +42,7 @@ public:
 	CFileProps* FindFile(const CString& strFileName);
 
 	// Template shorthands.
-	typedef TPtrArray<CFileProps> CFileList;
+	typedef std::vector<CFileProps*> CFileList;
 
 	//
 	// Members.

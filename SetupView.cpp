@@ -115,6 +115,9 @@ void CSetupView::OnResize(int /*iFlag*/, const CSize& /*rNewSize*/)
 
 void CSetupView::RefreshFileList()
 {
+	// Template shorthands.
+	typedef CSetupDoc::CFileList::const_iterator CIter;
+
 	CSetupDoc& oDoc = Doc();
 
 	// Preseve selection.
@@ -124,9 +127,9 @@ void CSetupView::RefreshFileList()
 	m_lvFiles.DeleteAllItems();
 
 	// For all files...
-	for (int i = 0; i < oDoc.m_aoFiles.Size(); ++i)
+	for (CIter oIter = oDoc.m_aoFiles.begin(); oIter != oDoc.m_aoFiles.end(); ++oIter)
 	{
-		CFileProps* pFileProps = oDoc.m_aoFiles[i];
+		CFileProps* pFileProps = *oIter;
 
 		int n = m_lvFiles.AppendItem(pFileProps->m_strFileName);
 		m_lvFiles.ItemPtr(n, pFileProps);

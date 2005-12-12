@@ -66,7 +66,7 @@ CSetupDoc::CSetupDoc()
 CSetupDoc::~CSetupDoc()
 {
 	// Cleanup file list.
-	m_aoFiles.DeleteAll();
+	DeleteAll(m_aoFiles);
 }
 
 /******************************************************************************
@@ -163,7 +163,7 @@ bool CSetupDoc::Load()
 			if (astrFields.Size() >= 3)
 				pFileProps->m_strIconDesc = astrFields[2];
 
-			m_aoFiles.Add(pFileProps);
+			m_aoFiles.push_back(pFileProps);
 		}
 
 		// Read shortcuts list.
@@ -260,7 +260,7 @@ bool CSetupDoc::Save()
 
 		int nCount = 0;
 
-		for (int i = 0; i < m_aoFiles.Size(); ++i)
+		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
@@ -287,7 +287,7 @@ bool CSetupDoc::Save()
 
 		nCount = 0;
 
-		for (int i = 0; i < m_aoFiles.Size(); ++i)
+		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
@@ -312,7 +312,7 @@ bool CSetupDoc::Save()
 
 		nCount = 0;
 
-		for (int i = 0; i < m_aoFiles.Size(); ++i)
+		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
 			CFileProps* pFileProps = m_aoFiles[i];
 
@@ -359,7 +359,7 @@ bool CSetupDoc::Save()
 CFileProps* CSetupDoc::FindFile(const CString& strFileName)
 {
 	// For all files...
-	for (int i = 0; i < m_aoFiles.Size(); ++i)
+	for (uint i = 0; i < m_aoFiles.size(); ++i)
 	{
 		CFileProps* pFileProps = m_aoFiles[i];
 
