@@ -28,9 +28,9 @@ CMakeSetupApp App;
 */
 
 #ifdef _DEBUG
-const char* CMakeSetupApp::VERSION      = "v1.1 [Debug]";
+const char* CMakeSetupApp::VERSION      = "v1.2 [Debug]";
 #else
-const char* CMakeSetupApp::VERSION      = "v1.1";
+const char* CMakeSetupApp::VERSION      = "v1.2";
 #endif
 const char* CMakeSetupApp::INI_FILE_VER = "1.0";
 
@@ -91,8 +91,7 @@ bool CMakeSetupApp::OnOpen()
 	m_rCmdControl.CmdBitmap().LoadRsc(IDR_APPTOOLBAR);
 
 	// Set the .INI file path.
-	m_oIniFile.m_strPath  = CPath::ApplicationDir();
-	m_oIniFile.m_strPath += "MkSetup.ini";
+	m_oIniFile.m_strPath = CPath::ApplicationDir() / "MkSetup.ini";
 
 	// Load app settings.
 	LoadConfig();
