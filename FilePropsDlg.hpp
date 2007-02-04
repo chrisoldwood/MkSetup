@@ -14,7 +14,7 @@
 
 /******************************************************************************
 ** 
-** .
+** The dialog used to edit the installtion properties for a file.
 **
 *******************************************************************************
 */
@@ -37,6 +37,7 @@ private:
 	// Controls.
 	//
 	CEditBox	m_ebFileName;
+	CComboBox	m_cbFolder;
 	CCheckBox	m_ckProgIcon;
 	CCheckBox	m_ckDeskIcon;
 	CEditBox	m_ebIconName;

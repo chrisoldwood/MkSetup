@@ -34,6 +34,7 @@ CFilePropsDlg::CFilePropsDlg()
 {
 	DEFINE_CTRL_TABLE
 		CTRL(IDC_FILE_NAME, &m_ebFileName)
+		CTRL(IDC_FOLDER,    &m_cbFolder)
 		CTRL(IDC_PROG_ICON, &m_ckProgIcon)
 		CTRL(IDC_DESK_ICON, &m_ckDeskIcon)
 		CTRL(IDC_ICON_NAME, &m_ebIconName)
@@ -69,6 +70,21 @@ void CFilePropsDlg::OnInitDialog()
 	m_ebIconName.Text(m_pFileProps->m_strIconName);
 	m_ebIconDesc.Text(m_pFileProps->m_strIconDesc);
 
+	// Load destination folder combo with defaults.
+	m_cbFolder.Add("%TargetDir%");
+	m_cbFolder.Add("%WinDir%");
+	m_cbFolder.Add("%SystemRoot%");
+	m_cbFolder.Add("%ProgramFiles%");
+
+	// Select destination folder, adding it if a custom one.
+	int nFolder = m_cbFolder.FindExact(m_pFileProps->m_strFolder);
+
+	if (nFolder == CB_ERR)
+		nFolder = m_cbFolder.Add(m_pFileProps->m_strFolder);
+
+	m_cbFolder.CurSel(nFolder);
+
+	// Initialise other UI.
 	OnFileIcon();
 }
 
@@ -88,6 +104,7 @@ bool CFilePropsDlg::OnOk()
 {
 	// Save changes.
 	m_pFileProps->m_strFileName = m_ebFileName.Text();
+	m_pFileProps->m_strFolder   = m_cbFolder.Text();
 	m_pFileProps->m_bProgIcon   = m_ckProgIcon.IsChecked();
 	m_pFileProps->m_bDeskIcon   = m_ckDeskIcon.IsChecked();
 	m_pFileProps->m_strIconName = m_ebIconName.Text();
