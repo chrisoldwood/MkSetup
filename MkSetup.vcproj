@@ -40,6 +40,7 @@
 				WarningLevel="4"
 				WarnAsError="TRUE"
 				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -48,6 +49,7 @@
 				OutputFile=".\Release/MkSetup.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Release/MkSetup.pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
@@ -112,7 +114,7 @@
 				WarningLevel="4"
 				WarnAsError="TRUE"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
