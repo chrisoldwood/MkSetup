@@ -31,6 +31,7 @@ public:
 	// Members.
 	//
 	CPath	m_strFileName;		// File name.
+	CPath	m_strFolder;		// Destination folder.
 	bool	m_bProgIcon;		// Create program icon?
 	bool	m_bDeskIcon;		// Create desktop icon?
 	CString	m_strIconName;		// Shortcut name.
@@ -46,6 +47,7 @@ public:
 
 inline CFileProps::CFileProps(const CPath& strFileName)
 	: m_strFileName(strFileName)
+	, m_strFolder("%TargetDir%")
 	, m_bProgIcon(false)
 	, m_bDeskIcon(false)
 {
