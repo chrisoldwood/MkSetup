@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by MkSetup.rc
 //
 #define IDR_APPICON                     2
@@ -44,6 +44,7 @@
 #define IDC_AUTHOR                      1094
 #define IDC_ICON_NAME                   1097
 #define IDC_ICON_DESC                   1098
+#define IDC_COMBO1                      1099
 #define IDD_MAIN                        5000
 #define IDD_ABOUT                       5001
 #define IDC_STATIC                      -1
@@ -55,7 +56,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         168
-#define _APS_NEXT_CONTROL_VALUE         1099
+#define _APS_NEXT_CONTROL_VALUE         1100
 #define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif
