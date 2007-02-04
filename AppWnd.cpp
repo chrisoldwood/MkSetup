@@ -96,3 +96,21 @@ bool CAppWnd::OnQueryClose()
 	// Close the app if the file was closed.
 	return App.m_AppCmds.CloseFile();
 }
+
+/******************************************************************************
+** Method:		OnActivate()
+**
+** Description:	Set the focus to the view, if it exists.
+**
+** Parameters:	bActivating		Being activated?
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CAppWnd::OnActivate(bool bActivating)
+{
+	if ( (bActivating) && (m_pView != NULL) )
+		m_pView->Focus();
+}

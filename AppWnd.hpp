@@ -57,6 +57,7 @@ protected:
 	//
 	virtual void OnCreate(const CRect& rcClient);
 	virtual bool OnQueryClose();
+	virtual void OnActivate(bool bActivating);
 };
 
 /******************************************************************************
