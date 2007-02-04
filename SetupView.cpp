@@ -74,13 +74,17 @@ void CSetupView::OnCreate(const CRect& /*rcClient*/)
 	// Create the listview.
 	m_lvFiles.Create(*this, IDC_FILES, ClientRect(), dwExStyle, dwStyle);
 
-	m_lvFiles.InsertColumn(FILE_NAME, "File",                 150);
+	m_lvFiles.InsertColumn(FILE_NAME, "File",                 125);
+	m_lvFiles.InsertColumn(FILE_DIR,  "Folder",               125);
 	m_lvFiles.InsertColumn(PROG_ICON, "Shortcut?",             75);
 	m_lvFiles.InsertColumn(DESK_ICON, "Desk Icon?",            75);
 	m_lvFiles.InsertColumn(ICON_NAME, "Shortcut Name",        150);
 	m_lvFiles.InsertColumn(ICON_DESC, "Shortcut Description", 200);
 
 	m_lvFiles.FullRowSelect();
+
+	// Set focus to the child.
+	m_lvFiles.Focus();
 }
 
 /******************************************************************************
@@ -137,20 +141,20 @@ void CSetupView::RefreshFileList()
 		RefreshFile(pFileProps);
 	}
 
-	// Restore selection.
-	if (nSel != LB_ERR)
-	{
-		if (nSel >= m_lvFiles.ItemCount())
-			--nSel;
+	// Restore selection or default to first item.
+	if (nSel == LB_ERR)
+		nSel = 0;
 
-		m_lvFiles.Select(nSel);
-	}
+	if (nSel >= m_lvFiles.ItemCount())
+		--nSel;
+
+	m_lvFiles.Select(nSel);
 }
 
 /******************************************************************************
-** Method:		RefreshFileList()
+** Method:		RefreshFile()
 **
-** Description:	Refresh the listview of files.
+** Description:	Refresh the details of a single file.
 **
 ** Parameters:	None.
 **
@@ -165,6 +169,7 @@ void CSetupView::RefreshFile(const CFileProps* pFileProps)
 
 	ASSERT(nItem != LB_ERR);
 
+	m_lvFiles.ItemText(nItem, FILE_DIR,  pFileProps->m_strFolder);
 	m_lvFiles.ItemText(nItem, PROG_ICON, (pFileProps->m_bProgIcon) ? "Yes" : "");
 	m_lvFiles.ItemText(nItem, DESK_ICON, (pFileProps->m_bDeskIcon) ? "Yes" : "");
 	m_lvFiles.ItemText(nItem, ICON_NAME, pFileProps->m_strIconName);
@@ -211,4 +216,21 @@ LRESULT CSetupView::OnListDoubleClick(NMHDR& /*oHdr*/)
 		App.m_AppWnd.PostCommand(ID_EDIT_PROPS);
 
 	return 0;
+}
+
+/******************************************************************************
+** Method:		OnFocus()
+**
+** Description:	The window has gained the focus, pass to the child ListView.
+**				
+** Parameters:	None.
+**
+** Returns:		Nothing.
+**
+*******************************************************************************
+*/
+
+void CSetupView::OnFocus()
+{
+	m_lvFiles.Focus();
 }

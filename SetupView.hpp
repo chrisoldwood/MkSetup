@@ -47,6 +47,7 @@ private:
 	enum
 	{
 		FILE_NAME,
+		FILE_DIR,
 		PROG_ICON,
 		DESK_ICON,
 		ICON_NAME,
@@ -61,6 +62,7 @@ private:
 	//
 	virtual void OnCreate(const CRect& rcClient);
 	virtual void OnResize(int iFlag, const CSize& rNewSize);
+	virtual void OnFocus();
 	LRESULT OnListSelChange(NMHDR& oHdr);
 	LRESULT OnListDoubleClick(NMHDR& oHdr);
 
