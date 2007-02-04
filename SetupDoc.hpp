@@ -60,13 +60,6 @@ public:
 	bool		m_bDeskIcon;		// Create a desktop icon?
 
 	CFileList	m_aoFiles;			// List of files to install.
-
-private:
-	//
-	// Constants.
-	//
-	static const char* OLD_FILE_VER;
-	static const char* CUR_FILE_VER;
 };
 
 /******************************************************************************

@@ -22,8 +22,7 @@
 *******************************************************************************
 */
 
-const char* CSetupDoc::OLD_FILE_VER = "1.0";
-const char* CSetupDoc::CUR_FILE_VER = "1.1";
+const char* CUR_FILE_VER = "1.2";
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -114,8 +113,12 @@ bool CSetupDoc::Load()
 		if (strVer == "")
 			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
-		if ( (strVer != CUR_FILE_VER) && (strVer != OLD_FILE_VER) )
+		if ( (strVer != CUR_FILE_VER) && (strVer != "1.1") && (strVer != "1.0") )
 			throw CFileException(CFileException::E_VERSION_INVALID, m_Path);
+
+		// Force write, if old format.
+		if (strVer != CUR_FILE_VER)
+			m_bModified = true;
 
 		// Load project settings.
 		m_strTitle     = oScript.ReadString("Main", "Title",     m_strTitle    );
@@ -147,7 +150,7 @@ bool CSetupDoc::Load()
 
 			// Must have at least a filename.
 			if ( (astrFields.Size() < 1) || (astrFields[0] == "") )
-				continue;
+				throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
 			// Create file props object and add to collection.
 			CFileProps* pFileProps = new CFileProps(astrFields[0]);
@@ -157,11 +160,21 @@ bool CSetupDoc::Load()
 			pFileProps->m_strIconName = "";
 			pFileProps->m_strIconDesc = "";
 
-			if (astrFields.Size() >= 2)
+			// v1.2 file.
+			if (astrFields.Size() == 4)
+			{
+				pFileProps->m_strFolder   = astrFields[1];
+				pFileProps->m_strIconName = astrFields[2];
+				pFileProps->m_strIconDesc = astrFields[3];
+			}
+			// v1.1 file.
+			else if ( (astrFields.Size() == 2) || (astrFields.Size() == 3) )
+			{
 				pFileProps->m_strIconName = astrFields[1];
 
-			if (astrFields.Size() >= 3)
-				pFileProps->m_strIconDesc = astrFields[2];
+				if (astrFields.Size() == 3)
+					pFileProps->m_strIconDesc = astrFields[2];
+			}
 
 			m_aoFiles.push_back(pFileProps);
 		}
@@ -270,6 +283,7 @@ bool CSetupDoc::Save()
 
 			// Generate file entry value.
 			strValue  = pFileProps->m_strFileName;
+			strValue += "," + pFileProps->m_strFolder;
 			strValue += "," + pFileProps->m_strIconName;
 			strValue += "," + pFileProps->m_strIconDesc;
 
