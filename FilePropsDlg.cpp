@@ -72,9 +72,9 @@ void CFilePropsDlg::OnInitDialog()
 
 	// Load destination folder combo with defaults.
 	m_cbFolder.Add("%TargetDir%");
-	m_cbFolder.Add("%WinDir%");
-	m_cbFolder.Add("%SystemRoot%");
 	m_cbFolder.Add("%ProgramFiles%");
+	m_cbFolder.Add("%SystemRoot%");
+	m_cbFolder.Add("%Temp%");
 
 	// Select destination folder, adding it if a custom one.
 	int nFolder = m_cbFolder.FindExact(m_pFileProps->m_strFolder);
@@ -111,6 +111,13 @@ bool CFilePropsDlg::OnOk()
 	m_pFileProps->m_strIconDesc = m_ebIconDesc.Text();
 
 	// Validate changes.
+	if (m_cbFolder.TextLength() == 0)
+	{
+		AlertMsg("Please provide the install folder.");
+		m_cbFolder.Focus();
+		return false;
+	}
+
 	if (m_pFileProps->m_bProgIcon || m_pFileProps->m_bDeskIcon)
 	{
 		// No shortcut name?
