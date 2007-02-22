@@ -68,6 +68,11 @@ public:
 	void OnUIEditRemoveFile();
 	void OnUIEditProjCfg();
 
+	// Range of MRU commands.
+	static const int ID_MRU_FIRST = ID_FILE_MRU_1;
+	static const int ID_MRU_LAST  = ID_FILE_MRU_9;
+	static const int NUM_MRU_CMDS = ID_MRU_LAST-ID_MRU_FIRST+1;
+
 protected:
 	//
 	// Template methods..
