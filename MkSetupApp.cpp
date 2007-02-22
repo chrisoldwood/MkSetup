@@ -47,7 +47,7 @@ const char* CMakeSetupApp::INI_FILE_VER = "1.0";
 */
 
 CMakeSetupApp::CMakeSetupApp()
-	: CSDIApp(m_AppWnd, m_AppCmds)
+	: CSDIApp(m_AppWnd, m_AppCmds, CAppCmds::NUM_MRU_CMDS)
 	, m_strLastDir(CPath::CurrentDir())
 {
 
