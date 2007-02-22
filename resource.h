@@ -16,7 +16,12 @@
 #define ID_FILE_MRU_2                   107
 #define ID_FILE_MRU_3                   108
 #define ID_FILE_MRU_4                   109
-#define ID_FILE_EXIT                    110
+#define ID_FILE_MRU_5                   110
+#define ID_FILE_MRU_6                   111
+#define ID_FILE_MRU_7                   112
+#define ID_FILE_MRU_8                   113
+#define ID_FILE_MRU_9                   114
+#define ID_FILE_EXIT                    115
 #define IDD_PROJ_CFG                    131
 #define IDD_FILE_PROPS                  132
 #define ID_EDIT_POPUP                   200
@@ -45,6 +50,7 @@
 #define IDC_ICON_NAME                   1097
 #define IDC_ICON_DESC                   1098
 #define IDC_COMBO1                      1099
+#define IDC_ROOT                        1099
 #define IDD_MAIN                        5000
 #define IDD_ABOUT                       5001
 #define IDC_STATIC                      -1

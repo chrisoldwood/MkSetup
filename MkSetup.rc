@@ -82,6 +82,11 @@ BEGIN
         MENUITEM "&2.",                         ID_FILE_MRU_2
         MENUITEM "&3.",                         ID_FILE_MRU_3
         MENUITEM "&4.",                         ID_FILE_MRU_4
+        MENUITEM "&5.",                         ID_FILE_MRU_5
+        MENUITEM "&6.",                         ID_FILE_MRU_6
+        MENUITEM "&7.",                         ID_FILE_MRU_7
+        MENUITEM "&8.",                         ID_FILE_MRU_8
+        MENUITEM "&9.",                         ID_FILE_MRU_9
         MENUITEM SEPARATOR
         MENUITEM "E&xit\tAlt+F4",               ID_FILE_EXIT
     END
@@ -140,8 +145,11 @@ BEGIN
     LTEXT           "Setup window &title:",IDC_STATIC,15,50,100,8
     EDITTEXT        IDC_TITLE,15,60,100,12,ES_AUTOHSCROLL
     GROUPBOX        "Install Folder",IDC_STATIC,5,85,230,45
-    LTEXT           "Default &folder name:",IDC_STATIC,15,100,100,8
-    EDITTEXT        IDC_FOLDER,15,110,100,12,ES_AUTOHSCROLL
+    LTEXT           "Default &root folder:",IDC_STATIC,15,100,100,8
+    COMBOBOX        IDC_ROOT,15,110,100,75,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Default &folder name:",IDC_STATIC,125,100,100,8
+    EDITTEXT        IDC_FOLDER,125,110,100,12,ES_AUTOHSCROLL
     GROUPBOX        "Start Menu",IDC_STATIC,5,135,230,60
     CONTROL         "&Create program icon(s)?",IDC_PROG_ICON,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,15,150,100,10
@@ -294,9 +302,9 @@ BEGIN
     ID_FILE_NEW             "Create a new file\nNew File (Ctrl+N)"
     ID_FILE_OPEN            "Open an existing file\nOpen File (Ctrl+O)"
     ID_FILE_SAVE            "Save the current file\nSave File (Ctrl+S)"
-    ID_FILE_SAVEAS          "Save the current file with a new name"
-    ID_FILE_CLOSE           "Close the current file"
-    ID_FILE_EXIT            "Exit F.C. Manager"
+    ID_FILE_SAVEAS          "Save the current file with a new name\nSave File As"
+    ID_FILE_CLOSE           "Close the current file\nClose File"
+    ID_FILE_EXIT            "Exit Make Setup"
 END
 
 STRINGTABLE 
@@ -304,7 +312,7 @@ BEGIN
     ID_EDIT_POPUP           "Edit options"
     ID_EDIT_ADD             "Add a file to the install set\nAdd File"
     ID_EDIT_ADD_MANY        "Add many files to the install set\n Add Files"
-    ID_EDIT_PROPS           "Edit the properties for the file\nProperties"
+    ID_EDIT_PROPS           "Edit the properties for the selected file\nProperties"
     ID_EDIT_REMOVE          "Remove the file from the install set\nRemove File"
 END
 
