@@ -52,6 +52,7 @@ public:
 	CString		m_strTitle;			// Setup window title.
 	CString		m_strProduct;		// Product name.
 	CString		m_strAuthor;		// Product author name.
+	CString		m_strDefRoot;		// Default root folder.
 	CString		m_strDefFolder;		// Default folder.
 	bool		m_bProgIcon;		// Create program icons?
 	bool		m_bAllUsers;		// Install for all users?

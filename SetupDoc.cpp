@@ -22,7 +22,10 @@
 *******************************************************************************
 */
 
-const char* CUR_FILE_VER = "1.2";
+static const char* FILE_VER_10  = "1.0";
+static const char* FILE_VER_11  = "1.1";
+static const char* FILE_VER_12  = "1.2";
+static const char* CUR_FILE_VER = FILE_VER_12;
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -41,6 +44,7 @@ CSetupDoc::CSetupDoc()
 	, m_strTitle("Product Setup")
 	, m_strProduct("Product")
 	, m_strAuthor("Author")
+	, m_strDefRoot("%ProgramFiles%")
 	, m_strDefFolder("Product Folder")
 	, m_bProgIcon(true)
 	, m_bAllUsers(false)
@@ -113,17 +117,21 @@ bool CSetupDoc::Load()
 		if (strVer == "")
 			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
-		if ( (strVer != CUR_FILE_VER) && (strVer != "1.1") && (strVer != "1.0") )
+		if ( (strVer != FILE_VER_12) && (strVer != FILE_VER_11) && (strVer != FILE_VER_10) )
 			throw CFileException(CFileException::E_VERSION_INVALID, m_Path);
 
 		// Force write, if old format.
 		if (strVer != CUR_FILE_VER)
+		{
+			App.NotifyMsg("The script was for Setup v%s and will be upgraded for Setup v%s.", strVer, CUR_FILE_VER);
 			m_bModified = true;
+		}
 
 		// Load project settings.
 		m_strTitle     = oScript.ReadString("Main", "Title",     m_strTitle    );
 		m_strProduct   = oScript.ReadString("Main", "Product",   m_strProduct  );
 		m_strAuthor    = oScript.ReadString("Main", "Author",    m_strAuthor   );
+		m_strDefRoot   = oScript.ReadString("Main", "DefRoot",   m_strDefRoot  );
 		m_strDefFolder = oScript.ReadString("Main", "DefFolder", m_strDefFolder);
 		m_bProgIcon    = oScript.ReadBool  ("Main", "ProgIcon",  m_bProgIcon   );
 		m_bAllUsers    = oScript.ReadBool  ("Main", "AllUsers",  m_bAllUsers   );
@@ -161,19 +169,28 @@ bool CSetupDoc::Load()
 			pFileProps->m_strIconDesc = "";
 
 			// v1.2 file.
-			if (astrFields.Size() == 4)
+			if (strVer == FILE_VER_12)
 			{
+				ASSERT(astrFields.Size() == 4);
+
 				pFileProps->m_strFolder   = astrFields[1];
 				pFileProps->m_strIconName = astrFields[2];
 				pFileProps->m_strIconDesc = astrFields[3];
 			}
 			// v1.1 file.
-			else if ( (astrFields.Size() == 2) || (astrFields.Size() == 3) )
+			else if (strVer == FILE_VER_11)
 			{
+				ASSERT((astrFields.Size() == 2) || (astrFields.Size() == 3));
+
 				pFileProps->m_strIconName = astrFields[1];
 
 				if (astrFields.Size() == 3)
 					pFileProps->m_strIconDesc = astrFields[2];
+			}
+			// v1.0 file.
+			else if (strVer == FILE_VER_10)
+			{
+				ASSERT(astrFields.Size() == 1);
 			}
 
 			m_aoFiles.push_back(pFileProps);
@@ -260,6 +277,7 @@ bool CSetupDoc::Save()
 		oScript.WriteString("Main", "Title",     m_strTitle    );
 		oScript.WriteString("Main", "Product",   m_strProduct  );
 		oScript.WriteString("Main", "Author",    m_strAuthor   );
+		oScript.WriteString("Main", "DefRoot",   m_strDefRoot  );
 		oScript.WriteString("Main", "DefFolder", m_strDefFolder);
 		oScript.WriteBool  ("Main", "ProgIcon",  m_bProgIcon   );
 		oScript.WriteBool  ("Main", "AllUsers",  m_bAllUsers   );
