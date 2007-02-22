@@ -39,6 +39,7 @@ protected:
 	CEditBox	m_ebTitle;
 	CEditBox	m_ebProduct;
 	CEditBox	m_ebAuthor;
+	CComboBox	m_cbRoot;
 	CEditBox	m_ebFolder;
 	CCheckBox	m_ckProgIcon;
 	CCheckBox	m_ckAllUsers;

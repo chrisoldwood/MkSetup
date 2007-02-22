@@ -36,6 +36,7 @@ CProjCfgDlg::CProjCfgDlg()
 		CTRL(IDC_TITLE,		&m_ebTitle   )
 		CTRL(IDC_PRODUCT,	&m_ebProduct )
 		CTRL(IDC_AUTHOR,	&m_ebAuthor  )
+		CTRL(IDC_ROOT,		&m_cbRoot    )
 		CTRL(IDC_FOLDER,	&m_ebFolder  )
 		CTRL(IDC_PROG_ICON, &m_ckProgIcon)
 		CTRL(IDC_ALL_USERS, &m_ckAllUsers)
@@ -64,7 +65,7 @@ void CProjCfgDlg::OnInitDialog()
 {
 	ASSERT(m_pDoc != NULL);
 
-	// Initialise controls.
+	// Initialise simple controls.
 	m_ebTitle.Text(m_pDoc->m_strTitle);
 	m_ebProduct.Text(m_pDoc->m_strProduct);
 	m_ebAuthor.Text(m_pDoc->m_strAuthor);
@@ -74,6 +75,20 @@ void CProjCfgDlg::OnInitDialog()
 	m_ckNewGroup.Check(m_pDoc->m_bNewGroup);
 	m_ebGroup.Text(m_pDoc->m_strProgGroup);
 	m_ckDeskIcon.Check(m_pDoc->m_bDeskIcon);
+
+	// Load root folder combo with defaults.
+	m_cbRoot.Add("%ProgramFiles%");
+	m_cbRoot.Add("%SystemRoot%");
+	m_cbRoot.Add("%Temp%");
+
+	// Select destination folder, adding it if a custom one.
+	int nFolder = m_cbRoot.FindExact(m_pDoc->m_strDefRoot);
+
+	if (nFolder == CB_ERR)
+		nFolder = m_cbRoot.Add(m_pDoc->m_strDefRoot);
+
+	m_cbRoot.CurSel(nFolder);
+
 }
 
 /******************************************************************************
@@ -94,12 +109,49 @@ bool CProjCfgDlg::OnOk()
 	m_pDoc->m_strTitle     = m_ebTitle.Text();
 	m_pDoc->m_strProduct   = m_ebProduct.Text();
 	m_pDoc->m_strAuthor    = m_ebAuthor.Text();
+	m_pDoc->m_strDefRoot   = m_cbRoot.Text();
 	m_pDoc->m_strDefFolder = m_ebFolder.Text();
 	m_pDoc->m_bProgIcon    = m_ckProgIcon.IsChecked();
 	m_pDoc->m_bAllUsers    = m_ckAllUsers.IsChecked();
 	m_pDoc->m_bNewGroup    = m_ckNewGroup.IsChecked();
 	m_pDoc->m_strProgGroup = m_ebGroup.Text();
 	m_pDoc->m_bDeskIcon    = m_ckDeskIcon.IsChecked();
+
+	// Validate changes.
+	if (m_ebProduct.TextLength() == 0)
+	{
+		AlertMsg("Please provide the product name.");
+		m_ebProduct.Focus();
+		return false;
+	}
+
+	if (m_ebTitle.TextLength() == 0)
+	{
+		AlertMsg("Please provide the Setup window title.");
+		m_ebTitle.Focus();
+		return false;
+	}
+
+	if (m_cbRoot.TextLength() == 0)
+	{
+		AlertMsg("Please provide the root installation folder.");
+		m_cbRoot.Focus();
+		return false;
+	}
+
+	if (m_ebFolder.TextLength() == 0)
+	{
+		AlertMsg("Please provide the program folder name.");
+		m_ebFolder.Focus();
+		return false;
+	}
+
+	if (m_ebGroup.TextLength() == 0)
+	{
+		AlertMsg("Please provide the program group name.");
+		m_ebGroup.Focus();
+		return false;
+	}
 
 	// Mark doc dirty.
 	m_pDoc->m_bModified = true;
