@@ -12,6 +12,7 @@
 #include "AboutDlg.hpp"
 #include "ProjCfgDlg.hpp"
 #include "FilePropsDlg.hpp"
+#include <algorithm>
 
 #ifdef _DEBUG
 // For memory leak detection.
