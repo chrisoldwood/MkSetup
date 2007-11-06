@@ -12,6 +12,12 @@
 #ifndef FILEPROPS_HPP
 #define FILEPROPS_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/Path.hpp>
+
 /******************************************************************************
 ** 
 ** The data class used to store the properties for a file in the install set.

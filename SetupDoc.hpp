@@ -12,6 +12,15 @@
 #ifndef SETUPDOC_HPP
 #define SETUPDOC_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/SDIDoc.hpp>
+
+// Forward declarations.
+class CFileProps;
+
 /******************************************************************************
 ** 
 ** The application document class.

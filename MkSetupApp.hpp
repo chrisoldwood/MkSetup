@@ -12,6 +12,17 @@
 #ifndef MKSETUPAPP_HPP
 #define MKSETUPAPP_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/SDIApp.hpp>
+#include "AppWnd.hpp"
+#include "AppCmds.hpp"
+#include "SetupDoc.hpp"
+#include "SetupView.hpp"
+#include <WCL/IniFile.hpp>
+
 /******************************************************************************
 ** 
 ** The application class.

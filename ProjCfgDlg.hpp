@@ -12,6 +12,15 @@
 #ifndef PROJCFGDLG_HPP
 #define PROJCFGDLG_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/CommonUI.hpp>
+
+// Forward declarations.
+class CSetupDoc;
+
 /******************************************************************************
 ** 
 ** The dialog used to edit the main project settings.

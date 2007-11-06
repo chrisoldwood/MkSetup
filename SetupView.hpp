@@ -12,6 +12,17 @@
 #ifndef SETUPVIEW_HPP
 #define SETUPVIEW_HPP
 
+#if _MSC_VER > 1000
+#pragma once
+#endif
+
+#include <WCL/View.hpp>
+#include <WCL/ListView.hpp>
+#include "SetupDoc.hpp"
+
+// Forward declarations.
+class CFileProps;
+
 /******************************************************************************
 ** 
 ** The documents' view class.

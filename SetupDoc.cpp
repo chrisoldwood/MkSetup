@@ -8,13 +8,14 @@
 *******************************************************************************
 */
 
-#include "AppHeaders.hpp"
+#include "Common.hpp"
+#include "SetupDoc.hpp"
 #include <Legacy/STLUtils.hpp>
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
+#include <WCL/IniFile.hpp>
+#include <WCL/FileException.hpp>
+#include "MkSetupApp.hpp"
+#include <WCL/StrTok.hpp>
+#include "FileProps.hpp"
 
 /******************************************************************************
 **

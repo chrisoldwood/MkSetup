@@ -8,16 +8,14 @@
 *******************************************************************************
 */
 
-#include "AppHeaders.hpp"
+#include "Common.hpp"
+#include "AppCmds.hpp"
+#include "MkSetupApp.hpp"
 #include "AboutDlg.hpp"
 #include "ProjCfgDlg.hpp"
 #include "FilePropsDlg.hpp"
 #include <algorithm>
-
-#ifdef _DEBUG
-// For memory leak detection.
-#define new DBGCRT_NEW
-#endif
+#include "FileProps.hpp"
 
 /******************************************************************************
 **
