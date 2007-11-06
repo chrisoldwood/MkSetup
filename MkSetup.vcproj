@@ -23,17 +23,20 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/EHa"
 				Optimization="2"
 				InlineFunctionExpansion="0"
 				AdditionalIncludeDirectories="../Lib"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
+				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="FALSE"
+				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="AppHeaders.hpp"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="Common.hpp"
 				PrecompiledHeaderFile=".\Release/MkSetup.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
@@ -94,19 +97,22 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/EHa"
 				Optimization="0"
 				AdditionalIncludeDirectories="../Lib"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
+				ExceptionHandling="FALSE"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="TRUE"
 				RuntimeLibrary="1"
 				BufferSecurityCheck="TRUE"
 				EnableFunctionLevelLinking="FALSE"
+				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="AppHeaders.hpp"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="Common.hpp"
 				PrecompiledHeaderFile=".\Debug/MkSetup.pch"
 				AssemblerListingLocation=".\Debug/"
 				ObjectFile=".\Debug/"
@@ -190,6 +196,21 @@
 				RelativePath="MkSetupApp.cpp">
 			</File>
 			<File
+				RelativePath=".\pch.cpp">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="ProjCfgDlg.cpp">
 			</File>
 			<File
@@ -209,13 +230,13 @@
 				RelativePath="AppCmds.hpp">
 			</File>
 			<File
-				RelativePath="AppHeaders.hpp">
-			</File>
-			<File
 				RelativePath="AppToolBar.hpp">
 			</File>
 			<File
 				RelativePath="AppWnd.hpp">
+			</File>
+			<File
+				RelativePath=".\Common.hpp">
 			</File>
 			<File
 				RelativePath="FileProps.hpp">
