@@ -29,8 +29,8 @@ CSetupView::CSetupView(CSetupDoc& rDoc)
 	: CView(rDoc)
 {
 	DEFINE_CTRLMSG_TABLE
-		NFY_CTRLMSG(IDC_FILES, LVN_ITEMCHANGED, OnListSelChange  )
-		NFY_CTRLMSG(IDC_FILES, NM_DBLCLK,       OnListDoubleClick)
+		NFY_CTRLMSG(IDC_FILES, LVN_ITEMCHANGED, &CSetupView::OnListSelChange  )
+		NFY_CTRLMSG(IDC_FILES, NM_DBLCLK,       &CSetupView::OnListDoubleClick)
 	END_CTRLMSG_TABLE
 }
 

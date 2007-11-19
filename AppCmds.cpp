@@ -46,21 +46,21 @@ CAppCmds::CAppCmds()
 	// Define the command table.
 	DEFINE_CMD_TABLE
 		// File menu.
-		CMD_ENTRY(ID_FILE_NEW,					OnFileNew,			NULL,					 0)
-		CMD_ENTRY(ID_FILE_OPEN,					OnFileOpen,			NULL,					 1)
-		CMD_ENTRY(ID_FILE_SAVE,					OnFileSave,			OnUIFileSave,			 2)
-		CMD_ENTRY(ID_FILE_SAVEAS,				OnFileSaveAs,		OnUIFileSaveAs,			-1)
-		CMD_ENTRY(ID_FILE_CLOSE,				OnFileClose,		OnUIFileClose,			 1)
-		CMD_RANGE(ID_MRU_FIRST,	ID_MRU_LAST,	OnFileOpenMRU,		OnUIFileOpenMRU,		-1)
-		CMD_ENTRY(ID_FILE_EXIT,					OnFileExit,			NULL,					-1)
+		CMD_ENTRY(ID_FILE_NEW,					&CAppCmds::OnFileNew,			NULL,							 0)
+		CMD_ENTRY(ID_FILE_OPEN,					&CAppCmds::OnFileOpen,			NULL,							 1)
+		CMD_ENTRY(ID_FILE_SAVE,					&CAppCmds::OnFileSave,			&CAppCmds::OnUIFileSave,		 2)
+		CMD_ENTRY(ID_FILE_SAVEAS,				&CAppCmds::OnFileSaveAs,		&CAppCmds::OnUIFileSaveAs,		-1)
+		CMD_ENTRY(ID_FILE_CLOSE,				&CAppCmds::OnFileClose,			&CAppCmds::OnUIFileClose,		 1)
+		CMD_RANGE(ID_MRU_FIRST,	ID_MRU_LAST,	&CAppCmds::OnFileOpenMRU,		&CAppCmds::OnUIFileOpenMRU,		-1)
+		CMD_ENTRY(ID_FILE_EXIT,					&CAppCmds::OnFileExit,			NULL,							-1)
 		// File menu.
-		CMD_ENTRY(ID_EDIT_ADD,					OnEditAddFile,		OnUIEditAddFile,		-1)
-		CMD_ENTRY(ID_EDIT_ADD_MANY,				OnEditAddFiles,		OnUIEditAddFiles,		-1)
-		CMD_ENTRY(ID_EDIT_PROPS,				OnEditFileProps,	OnUIEditFileProps,		-1)
-		CMD_ENTRY(ID_EDIT_REMOVE,				OnEditRemoveFile,	OnUIEditRemoveFile,		-1)
-		CMD_ENTRY(ID_EDIT_PROJ_CFG,				OnEditProjCfg,		OnUIEditProjCfg,		-1)
+		CMD_ENTRY(ID_EDIT_ADD,					&CAppCmds::OnEditAddFile,		&CAppCmds::OnUIEditAddFile,		-1)
+		CMD_ENTRY(ID_EDIT_ADD_MANY,				&CAppCmds::OnEditAddFiles,		&CAppCmds::OnUIEditAddFiles,	-1)
+		CMD_ENTRY(ID_EDIT_PROPS,				&CAppCmds::OnEditFileProps,		&CAppCmds::OnUIEditFileProps,	-1)
+		CMD_ENTRY(ID_EDIT_REMOVE,				&CAppCmds::OnEditRemoveFile,	&CAppCmds::OnUIEditRemoveFile,	-1)
+		CMD_ENTRY(ID_EDIT_PROJ_CFG,				&CAppCmds::OnEditProjCfg,		&CAppCmds::OnUIEditProjCfg,		-1)
 		// Help menu.
-		CMD_ENTRY(ID_HELP_ABOUT,				OnHelpAbout,		NULL,					10)
+		CMD_ENTRY(ID_HELP_ABOUT,				&CAppCmds::OnHelpAbout,			NULL,							10)
 	END_CMD_TABLE
 }
 
