@@ -57,7 +57,7 @@ public:
 	//
 	// Constants.
 	//
-	static const char* VERSION;
+	static const tchar* VERSION;
 
 protected:
 	//
@@ -77,13 +77,13 @@ protected:
 	//
 	virtual CSDIDoc*    CreateDoc() const;
 	virtual CView*      CreateView(CDoc& rDoc) const;
-	virtual const char* FileExts() const;
-	virtual const char* DefFileExt() const;
+	virtual const tchar* FileExts() const;
+	virtual const tchar* DefFileExt() const;
 
 	//
 	// Constants.
 	//
-	static const char* INI_FILE_VER;
+	static const tchar* INI_FILE_VER;
 };
 
 /******************************************************************************
@@ -123,18 +123,18 @@ inline CView* CMakeSetupApp::CreateView(CDoc& rDoc) const
 	return new CSetupView(static_cast<CSetupDoc&>(rDoc));
 }
 
-inline const char* CMakeSetupApp::FileExts() const
+inline const tchar* CMakeSetupApp::FileExts() const
 {
-	static char szExts[] = {	"Setup Files (*.ini)\0*.ini\0"
-								"All Files (*.*)\0*.*\0"
-								"\0\0"							};
+	static tchar szExts[] = {	TXT("Setup Files (*.ini)\0*.ini\0")
+								TXT("All Files (*.*)\0*.*\0")
+								TXT("\0\0")							};
 
 	return szExts;
 }
 
-inline const char* CMakeSetupApp::DefFileExt() const
+inline const tchar* CMakeSetupApp::DefFileExt() const
 {
-	static char szDefExt[] = { "ini" };
+	static tchar szDefExt[] = { TXT("ini") };
 
 	return szDefExt;
 }

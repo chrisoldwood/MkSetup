@@ -73,9 +73,9 @@ void CProjCfgDlg::OnInitDialog()
 	m_ckDeskIcon.Check(m_pDoc->m_bDeskIcon);
 
 	// Load root folder combo with defaults.
-	m_cbRoot.Add("%ProgramFiles%");
-	m_cbRoot.Add("%SystemRoot%");
-	m_cbRoot.Add("%Temp%");
+	m_cbRoot.Add(TXT("%ProgramFiles%"));
+	m_cbRoot.Add(TXT("%SystemRoot%"));
+	m_cbRoot.Add(TXT("%Temp%"));
 
 	// Select destination folder, adding it if a custom one.
 	int nFolder = m_cbRoot.FindExact(m_pDoc->m_strDefRoot);
@@ -116,35 +116,35 @@ bool CProjCfgDlg::OnOk()
 	// Validate changes.
 	if (m_ebProduct.TextLength() == 0)
 	{
-		AlertMsg("Please provide the product name.");
+		AlertMsg(TXT("Please provide the product name."));
 		m_ebProduct.Focus();
 		return false;
 	}
 
 	if (m_ebTitle.TextLength() == 0)
 	{
-		AlertMsg("Please provide the Setup window title.");
+		AlertMsg(TXT("Please provide the Setup window title."));
 		m_ebTitle.Focus();
 		return false;
 	}
 
 	if (m_cbRoot.TextLength() == 0)
 	{
-		AlertMsg("Please provide the root installation folder.");
+		AlertMsg(TXT("Please provide the root installation folder."));
 		m_cbRoot.Focus();
 		return false;
 	}
 
 	if (m_ebFolder.TextLength() == 0)
 	{
-		AlertMsg("Please provide the program folder name.");
+		AlertMsg(TXT("Please provide the program folder name."));
 		m_ebFolder.Focus();
 		return false;
 	}
 
 	if (m_ebGroup.TextLength() == 0)
 	{
-		AlertMsg("Please provide the program group name.");
+		AlertMsg(TXT("Please provide the program group name."));
 		m_ebGroup.Focus();
 		return false;
 	}

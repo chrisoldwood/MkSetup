@@ -29,11 +29,11 @@ CMakeSetupApp App;
 */
 
 #ifdef _DEBUG
-const char* CMakeSetupApp::VERSION      = "v1.2 [Debug]";
+const tchar* CMakeSetupApp::VERSION = TXT("v1.2 [Debug]");
 #else
-const char* CMakeSetupApp::VERSION      = "v1.2";
+const tchar* CMakeSetupApp::VERSION = TXT("v1.2");
 #endif
-const char* CMakeSetupApp::INI_FILE_VER = "1.0";
+const tchar* CMakeSetupApp::INI_FILE_VER = TXT("1.0");
 
 /******************************************************************************
 ** Method:		Constructor
@@ -86,13 +86,13 @@ CMakeSetupApp::~CMakeSetupApp()
 bool CMakeSetupApp::OnOpen()
 {
 	// Set the app title.
-	m_strTitle = "Make Setup";
+	m_strTitle = TXT("Make Setup");
 
 	// Load the toolbar bitmap.
 	m_rCmdControl.CmdBitmap().LoadRsc(IDR_APPTOOLBAR);
 
 	// Set the .INI file path.
-	m_oIniFile.m_strPath = CPath::ApplicationDir() / "MkSetup.ini";
+	m_oIniFile.m_strPath = CPath::ApplicationDir() / TXT("MkSetup.ini");
 
 	// Load app settings.
 	LoadConfig();
@@ -157,11 +157,11 @@ bool CMakeSetupApp::OnClose()
 void CMakeSetupApp::LoadConfig()
 {
 	// Read the file version.
-	CString strVer = m_oIniFile.ReadString("Version", "Version", INI_FILE_VER);
+	CString strVer = m_oIniFile.ReadString(TXT("Version"), TXT("Version"), INI_FILE_VER);
 
 	// Read UI settings.
-	m_rcAppWnd   = m_oIniFile.ReadRect  ("Main", "Window",  CRect(0,0,0,0));
-	m_strLastDir = m_oIniFile.ReadString("Main", "LastDir", m_strLastDir);
+	m_rcAppWnd   = m_oIniFile.ReadRect  (TXT("Main"), TXT("Window"),  CRect(0,0,0,0));
+	m_strLastDir = m_oIniFile.ReadString(TXT("Main"), TXT("LastDir"), m_strLastDir);
 }
 
 /******************************************************************************
@@ -179,9 +179,9 @@ void CMakeSetupApp::LoadConfig()
 void CMakeSetupApp::SaveConfig()
 {
 	// Write the file version.
-	m_oIniFile.WriteString("Version", "Version", INI_FILE_VER);
+	m_oIniFile.WriteString(TXT("Version"), TXT("Version"), INI_FILE_VER);
 
 	// Write UI settings.
-	m_oIniFile.WriteRect  ("Main", "Window",  m_rcAppWnd);
-	m_oIniFile.WriteString("Main", "LastDir", m_strLastDir);
+	m_oIniFile.WriteRect  (TXT("Main"), TXT("Window"),  m_rcAppWnd);
+	m_oIniFile.WriteString(TXT("Main"), TXT("LastDir"), m_strLastDir);
 }

@@ -24,10 +24,10 @@
 *******************************************************************************
 */
 
-static const char* FILE_VER_10  = "1.0";
-static const char* FILE_VER_11  = "1.1";
-static const char* FILE_VER_12  = "1.2";
-static const char* CUR_FILE_VER = FILE_VER_12;
+static const tchar* FILE_VER_10  = TXT("1.0");
+static const tchar* FILE_VER_11  = TXT("1.1");
+static const tchar* FILE_VER_12  = TXT("1.2");
+static const tchar* CUR_FILE_VER = FILE_VER_12;
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -43,14 +43,14 @@ static const char* CUR_FILE_VER = FILE_VER_12;
 
 CSetupDoc::CSetupDoc()
 	: m_bModified(false)
-	, m_strTitle("Product Setup")
-	, m_strProduct("Product")
-	, m_strAuthor("Author")
-	, m_strDefRoot("%ProgramFiles%")
-	, m_strDefFolder("Product Folder")
+	, m_strTitle(TXT("Product Setup"))
+	, m_strProduct(TXT("Product"))
+	, m_strAuthor(TXT("Author"))
+	, m_strDefRoot(TXT("%ProgramFiles%"))
+	, m_strDefFolder(TXT("Product Folder"))
 	, m_bProgIcon(true)
 	, m_bAllUsers(false)
-	, m_strProgGroup("Product Group")
+	, m_strProgGroup(TXT("Product Group"))
 	, m_bNewGroup(true)
 	, m_bDeskIcon(false)
 {
@@ -114,9 +114,9 @@ bool CSetupDoc::Load()
 			throw CFileException(CFileException::E_PATH_INVALID, m_Path);
 
 		// Read the .ini file version.
-		CString strVer = oScript.ReadString("Version", "Version", "");
+		CString strVer = oScript.ReadString(TXT("Version"), TXT("Version"), TXT(""));
 
-		if (strVer == "")
+		if (strVer == TXT(""))
 			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
 		if ( (strVer != FILE_VER_12) && (strVer != FILE_VER_11) && (strVer != FILE_VER_10) )
@@ -125,41 +125,41 @@ bool CSetupDoc::Load()
 		// Force write, if old format.
 		if (strVer != CUR_FILE_VER)
 		{
-			App.NotifyMsg("The script was for Setup v%s and will be upgraded for Setup v%s.", strVer, CUR_FILE_VER);
+			App.NotifyMsg(TXT("The script was for Setup v%s and will be upgraded for Setup v%s."), strVer, CUR_FILE_VER);
 			m_bModified = true;
 		}
 
 		// Load project settings.
-		m_strTitle     = oScript.ReadString("Main", "Title",     m_strTitle    );
-		m_strProduct   = oScript.ReadString("Main", "Product",   m_strProduct  );
-		m_strAuthor    = oScript.ReadString("Main", "Author",    m_strAuthor   );
-		m_strDefRoot   = oScript.ReadString("Main", "DefRoot",   m_strDefRoot  );
-		m_strDefFolder = oScript.ReadString("Main", "DefFolder", m_strDefFolder);
-		m_bProgIcon    = oScript.ReadBool  ("Main", "ProgIcon",  m_bProgIcon   );
-		m_bAllUsers    = oScript.ReadBool  ("Main", "AllUsers",  m_bAllUsers   );
-		m_strProgGroup = oScript.ReadString("Main", "ProgGroup", m_strProgGroup);
-		m_bNewGroup    = oScript.ReadBool  ("Main", "NewGroup",  m_bNewGroup   );
-		m_bDeskIcon    = oScript.ReadBool  ("Main", "DeskIcon",  m_bDeskIcon   );
+		m_strTitle     = oScript.ReadString(TXT("Main"), TXT("Title"),     m_strTitle    );
+		m_strProduct   = oScript.ReadString(TXT("Main"), TXT("Product"),   m_strProduct  );
+		m_strAuthor    = oScript.ReadString(TXT("Main"), TXT("Author"),    m_strAuthor   );
+		m_strDefRoot   = oScript.ReadString(TXT("Main"), TXT("DefRoot"),   m_strDefRoot  );
+		m_strDefFolder = oScript.ReadString(TXT("Main"), TXT("DefFolder"), m_strDefFolder);
+		m_bProgIcon    = oScript.ReadBool  (TXT("Main"), TXT("ProgIcon"),  m_bProgIcon   );
+		m_bAllUsers    = oScript.ReadBool  (TXT("Main"), TXT("AllUsers"),  m_bAllUsers   );
+		m_strProgGroup = oScript.ReadString(TXT("Main"), TXT("ProgGroup"), m_strProgGroup);
+		m_bNewGroup    = oScript.ReadBool  (TXT("Main"), TXT("NewGroup"),  m_bNewGroup   );
+		m_bDeskIcon    = oScript.ReadBool  (TXT("Main"), TXT("DeskIcon"),  m_bDeskIcon   );
 
 		// Read file list.
-		int nFiles = oScript.ReadInt("Files", "Count", 0);
+		int nFiles = oScript.ReadInt(TXT("Files"), TXT("Count"), 0);
 
 		for (int i = 0; i < nFiles; ++i)
 		{
 			CString strEntry, strValue;
 
-			strEntry.Format("File[%d]", i);
+			strEntry.Format(TXT("File[%d]"), i);
 
 			// Read filename + shortcut name + description.
-			strValue = oScript.ReadString("Files", strEntry, "");
+			strValue = oScript.ReadString(TXT("Files"), strEntry, TXT(""));
 
 			CStrArray astrFields;
 
 			// Split into file + name + description.
-			CStrTok::Split(strValue, ',', astrFields);
+			CStrTok::Split(strValue, TXT(','), astrFields);
 
 			// Must have at least a filename.
-			if ( (astrFields.Size() < 1) || (astrFields[0] == "") )
+			if ( (astrFields.Size() < 1) || (astrFields[0] == TXT("")) )
 				throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
 
 			// Create file props object and add to collection.
@@ -167,8 +167,8 @@ bool CSetupDoc::Load()
 
 			pFileProps->m_bProgIcon   = false;
 			pFileProps->m_bDeskIcon   = false;
-			pFileProps->m_strIconName = "";
-			pFileProps->m_strIconDesc = "";
+			pFileProps->m_strIconName = TXT("");
+			pFileProps->m_strIconDesc = TXT("");
 
 			// v1.2 file.
 			if (strVer == FILE_VER_12)
@@ -199,16 +199,16 @@ bool CSetupDoc::Load()
 		}
 
 		// Read shortcuts list.
-		nFiles = oScript.ReadInt("Shortcuts", "Count", 0);
+		nFiles = oScript.ReadInt(TXT("Shortcuts"), TXT("Count"), 0);
 
 		for (int i = 0; i < nFiles; ++i)
 		{
 			CString strEntry, strFileName;
 
-			strEntry.Format("Shortcut[%d]", i);
+			strEntry.Format(TXT("Shortcut[%d]"), i);
 
 			// Read filename.
-			strFileName = oScript.ReadString("Shortcuts", strEntry, "");
+			strFileName = oScript.ReadString(TXT("Shortcuts"), strEntry, TXT(""));
 
 			// Find file and object and set flag.
 			CFileProps* pFileProps = FindFile(strFileName);
@@ -220,16 +220,16 @@ bool CSetupDoc::Load()
 		}
 
 		// Read desktop icons list.
-		nFiles = oScript.ReadInt("DeskIcons", "Count", 0);
+		nFiles = oScript.ReadInt(TXT("DeskIcons"), TXT("Count"), 0);
 
 		for (int i = 0; i < nFiles; ++i)
 		{
 			CString strEntry, strFileName;
 
-			strEntry.Format("DeskIcon[%d]", i);
+			strEntry.Format(TXT("DeskIcon[%d]"), i);
 
 			// Read filename.
-			strFileName = oScript.ReadString("DeskIcons", strEntry, "");
+			strFileName = oScript.ReadString(TXT("DeskIcons"), strEntry, TXT(""));
 
 			// Find file and object and set flag.
 			CFileProps* pFileProps = FindFile(strFileName);
@@ -243,7 +243,7 @@ bool CSetupDoc::Load()
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(e.ErrorText());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.ErrorText());
 		return false;
 	}
 
@@ -273,23 +273,23 @@ bool CSetupDoc::Save()
 			throw CFileException(CFileException::E_READ_ONLY, m_Path);
 
 		// Read the .ini file version.
-		oScript.WriteString("Version", "Version", CUR_FILE_VER);
+		oScript.WriteString(TXT("Version"), TXT("Version"), CUR_FILE_VER);
 
 		// Save project settings.
-		oScript.WriteString("Main", "Title",     m_strTitle    );
-		oScript.WriteString("Main", "Product",   m_strProduct  );
-		oScript.WriteString("Main", "Author",    m_strAuthor   );
-		oScript.WriteString("Main", "DefRoot",   m_strDefRoot  );
-		oScript.WriteString("Main", "DefFolder", m_strDefFolder);
-		oScript.WriteBool  ("Main", "ProgIcon",  m_bProgIcon   );
-		oScript.WriteBool  ("Main", "AllUsers",  m_bAllUsers   );
-		oScript.WriteString("Main", "ProgGroup", m_strProgGroup);
-		oScript.WriteBool  ("Main", "NewGroup",  m_bNewGroup   );
-		oScript.WriteBool  ("Main", "DeskIcon",  m_bDeskIcon   );
+		oScript.WriteString(TXT("Main"), TXT("Title"),     m_strTitle    );
+		oScript.WriteString(TXT("Main"), TXT("Product"),   m_strProduct  );
+		oScript.WriteString(TXT("Main"), TXT("Author"),    m_strAuthor   );
+		oScript.WriteString(TXT("Main"), TXT("DefRoot"),   m_strDefRoot  );
+		oScript.WriteString(TXT("Main"), TXT("DefFolder"), m_strDefFolder);
+		oScript.WriteBool  (TXT("Main"), TXT("ProgIcon"),  m_bProgIcon   );
+		oScript.WriteBool  (TXT("Main"), TXT("AllUsers"),  m_bAllUsers   );
+		oScript.WriteString(TXT("Main"), TXT("ProgGroup"), m_strProgGroup);
+		oScript.WriteBool  (TXT("Main"), TXT("NewGroup"),  m_bNewGroup   );
+		oScript.WriteBool  (TXT("Main"), TXT("DeskIcon"),  m_bDeskIcon   );
 
 		// Write file list.
-		oScript.DeleteSection("Files");
-		oScript.WriteInt("Files", "Count", 0);
+		oScript.DeleteSection(TXT("Files"));
+		oScript.WriteInt(TXT("Files"), TXT("Count"), 0);
 
 		int nCount = 0;
 
@@ -299,25 +299,25 @@ bool CSetupDoc::Save()
 
 			CString strEntry, strValue;
 
-			strEntry.Format("File[%d]", nCount);
+			strEntry.Format(TXT("File[%d]"), nCount);
 
 			// Generate file entry value.
 			strValue  = pFileProps->m_strFileName;
-			strValue += "," + pFileProps->m_strFolder;
-			strValue += "," + pFileProps->m_strIconName;
-			strValue += "," + pFileProps->m_strIconDesc;
+			strValue += TXT(",") + pFileProps->m_strFolder;
+			strValue += TXT(",") + pFileProps->m_strIconName;
+			strValue += TXT(",") + pFileProps->m_strIconDesc;
 
 			// Write filename.
-			oScript.WriteString("Files", strEntry, strValue);
+			oScript.WriteString(TXT("Files"), strEntry, strValue);
 
 			++nCount;
 		}
 
-		oScript.WriteInt("Files", "Count", nCount);
+		oScript.WriteInt(TXT("Files"), TXT("Count"), nCount);
 
 		// Write shortcuts list.
-		oScript.DeleteSection("Shortcuts");
-		oScript.WriteInt("Shortcuts", "Count", 0);
+		oScript.DeleteSection(TXT("Shortcuts"));
+		oScript.WriteInt(TXT("Shortcuts"), TXT("Count"), 0);
 
 		nCount = 0;
 
@@ -329,20 +329,20 @@ bool CSetupDoc::Save()
 			{
 				CString strEntry;
 
-				strEntry.Format("Shortcut[%d]", nCount);
+				strEntry.Format(TXT("Shortcut[%d]"), nCount);
 
 				// Write filename.
-				oScript.WriteString("Shortcuts", strEntry, pFileProps->m_strFileName);
+				oScript.WriteString(TXT("Shortcuts"), strEntry, pFileProps->m_strFileName);
 
 				++nCount;
 			}
 		}
 
-		oScript.WriteInt("Shortcuts", "Count", nCount);
+		oScript.WriteInt(TXT("Shortcuts"), TXT("Count"), nCount);
 
 		// Write desktop icons list.
-		oScript.DeleteSection("DeskIcons");
-		oScript.WriteInt("DeskIcons", "Count", 0);
+		oScript.DeleteSection(TXT("DeskIcons"));
+		oScript.WriteInt(TXT("DeskIcons"), TXT("Count"), 0);
 
 		nCount = 0;
 
@@ -354,16 +354,16 @@ bool CSetupDoc::Save()
 			{
 				CString strEntry;
 
-				strEntry.Format("DeskIcon[%d]", nCount);
+				strEntry.Format(TXT("DeskIcon[%d]"), nCount);
 
 				// Write filename.
-				oScript.WriteString("DeskIcons", strEntry, pFileProps->m_strFileName);
+				oScript.WriteString(TXT("DeskIcons"), strEntry, pFileProps->m_strFileName);
 
 				++nCount;
 			}
 		}
 
-		oScript.WriteInt("DeskIcons", "Count", nCount);
+		oScript.WriteInt(TXT("DeskIcons"), TXT("Count"), nCount);
 
 		// Reset status.
 		m_bModified = false;
@@ -371,7 +371,7 @@ bool CSetupDoc::Save()
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(e.ErrorText());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.ErrorText());
 		return false;
 	}
 

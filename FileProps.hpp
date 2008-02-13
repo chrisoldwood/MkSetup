@@ -53,15 +53,15 @@ public:
 
 inline CFileProps::CFileProps(const CPath& strFileName)
 	: m_strFileName(strFileName)
-	, m_strFolder("%TargetDir%")
+	, m_strFolder(TXT("%TargetDir%"))
 	, m_bProgIcon(false)
 	, m_bDeskIcon(false)
 {
 	CString strExt = m_strFileName.FileExt().ToLower();
 
 	// Create icons for the application and helpfile.
-	m_bProgIcon = ((strExt == ".exe") || (strExt == ".hlp"));
-	m_bDeskIcon = (strExt == ".exe");
+	m_bProgIcon = ((strExt == TXT(".exe")) || (strExt == TXT(".hlp")));
+	m_bDeskIcon = (strExt == TXT(".exe"));
 
 	// Create default shortcut name + description.
 	if (m_bProgIcon || m_bDeskIcon)
@@ -70,11 +70,11 @@ inline CFileProps::CFileProps(const CPath& strFileName)
 		m_strIconName = strFileName.FileTitle();
 
 		// Create default shortcut description.
-		if (strExt == ".exe")
-			m_strIconDesc = "Launch " + m_strIconName;
+		if (strExt == TXT(".exe"))
+			m_strIconDesc = TXT("Launch ") + m_strIconName;
 
-		if (strExt == ".hlp")
-			m_strIconDesc = m_strIconName + " Manual";
+		if (strExt == TXT(".hlp"))
+			m_strIconDesc = m_strIconName + TXT(" Manual");
 	}
 }
 

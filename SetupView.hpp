@@ -104,7 +104,7 @@ inline CFileProps* CSetupView::GetSelection() const
 {
 	ASSERT(IsFileSelected());
 
-	return (CFileProps*)m_lvFiles.ItemPtr(m_lvFiles.Selection());
+	return static_cast<CFileProps*>(m_lvFiles.ItemPtr(m_lvFiles.Selection()));
 }
 
 #endif // SETUPVIEW_HPP

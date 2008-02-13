@@ -67,10 +67,10 @@ void CFilePropsDlg::OnInitDialog()
 	m_ebIconDesc.Text(m_pFileProps->m_strIconDesc);
 
 	// Load destination folder combo with defaults.
-	m_cbFolder.Add("%TargetDir%");
-	m_cbFolder.Add("%ProgramFiles%");
-	m_cbFolder.Add("%SystemRoot%");
-	m_cbFolder.Add("%Temp%");
+	m_cbFolder.Add(TXT("%TargetDir%"));
+	m_cbFolder.Add(TXT("%ProgramFiles%"));
+	m_cbFolder.Add(TXT("%SystemRoot%"));
+	m_cbFolder.Add(TXT("%Temp%"));
 
 	// Select destination folder, adding it if a custom one.
 	int nFolder = m_cbFolder.FindExact(m_pFileProps->m_strFolder);
@@ -109,7 +109,7 @@ bool CFilePropsDlg::OnOk()
 	// Validate changes.
 	if (m_cbFolder.TextLength() == 0)
 	{
-		AlertMsg("Please provide the install folder.");
+		AlertMsg(TXT("Please provide the install folder."));
 		m_cbFolder.Focus();
 		return false;
 	}
@@ -117,17 +117,17 @@ bool CFilePropsDlg::OnOk()
 	if (m_pFileProps->m_bProgIcon || m_pFileProps->m_bDeskIcon)
 	{
 		// No shortcut name?
-		if (m_pFileProps->m_strIconName == "")
+		if (m_pFileProps->m_strIconName == TXT(""))
 		{
-			AlertMsg("Please provide the shortcut name.");
+			AlertMsg(TXT("Please provide the shortcut name."));
 			m_ebIconName.Focus();
 			return false;
 		}
 
 		// No shortcut description?
-		if (m_pFileProps->m_strIconDesc == "")
+		if (m_pFileProps->m_strIconDesc == TXT(""))
 		{
-			AlertMsg("Please provide the shortcut description.");
+			AlertMsg(TXT("Please provide the shortcut description."));
 			m_ebIconDesc.Focus();
 			return false;
 		}

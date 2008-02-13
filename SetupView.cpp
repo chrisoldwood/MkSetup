@@ -72,12 +72,12 @@ void CSetupView::OnCreate(const CRect& /*rcClient*/)
 	// Create the listview.
 	m_lvFiles.Create(*this, IDC_FILES, ClientRect(), dwExStyle, dwStyle);
 
-	m_lvFiles.InsertColumn(FILE_NAME, "File",                 125);
-	m_lvFiles.InsertColumn(FILE_DIR,  "Folder",               125);
-	m_lvFiles.InsertColumn(PROG_ICON, "Shortcut?",             75);
-	m_lvFiles.InsertColumn(DESK_ICON, "Desk Icon?",            75);
-	m_lvFiles.InsertColumn(ICON_NAME, "Shortcut Name",        150);
-	m_lvFiles.InsertColumn(ICON_DESC, "Shortcut Description", 200);
+	m_lvFiles.InsertColumn(FILE_NAME, TXT("File"),                 125);
+	m_lvFiles.InsertColumn(FILE_DIR,  TXT("Folder"),               125);
+	m_lvFiles.InsertColumn(PROG_ICON, TXT("Shortcut?"),             75);
+	m_lvFiles.InsertColumn(DESK_ICON, TXT("Desk Icon?"),            75);
+	m_lvFiles.InsertColumn(ICON_NAME, TXT("Shortcut Name"),        150);
+	m_lvFiles.InsertColumn(ICON_DESC, TXT("Shortcut Description"), 200);
 
 	m_lvFiles.FullRowSelect();
 
@@ -123,7 +123,7 @@ void CSetupView::RefreshFileList()
 	CSetupDoc& oDoc = Doc();
 
 	// Preseve selection.
-	int nSel = m_lvFiles.Selection();
+	size_t nSel = m_lvFiles.Selection();
 
 	// Clear view.
 	m_lvFiles.DeleteAllItems();
@@ -168,8 +168,8 @@ void CSetupView::RefreshFile(const CFileProps* pFileProps)
 	ASSERT(nItem != LB_ERR);
 
 	m_lvFiles.ItemText(nItem, FILE_DIR,  pFileProps->m_strFolder);
-	m_lvFiles.ItemText(nItem, PROG_ICON, (pFileProps->m_bProgIcon) ? "Yes" : "");
-	m_lvFiles.ItemText(nItem, DESK_ICON, (pFileProps->m_bDeskIcon) ? "Yes" : "");
+	m_lvFiles.ItemText(nItem, PROG_ICON, (pFileProps->m_bProgIcon) ? TXT("Yes") : TXT(""));
+	m_lvFiles.ItemText(nItem, DESK_ICON, (pFileProps->m_bDeskIcon) ? TXT("Yes") : TXT(""));
 	m_lvFiles.ItemText(nItem, ICON_NAME, pFileProps->m_strIconName);
 	m_lvFiles.ItemText(nItem, ICON_DESC, pFileProps->m_strIconDesc);
 }

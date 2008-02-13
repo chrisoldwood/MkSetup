@@ -24,10 +24,10 @@
 *******************************************************************************
 */
 
-static char g_szExts[] = {	"All Files (*.*)\0*.*\0"
-							"\0\0"						};
+static tchar g_szExts[] = {	TXT("All Files (*.*)\0*.*\0")
+							TXT("\0\0")						};
 
-static char g_szDefExt[] = { "" };
+static tchar g_szDefExt[] = { TXT("") };
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -310,7 +310,7 @@ void CAppCmds::OnEditAddFiles()
 		return;
 
 	// For all files...
-	for (int i = 0; i < astrFiles.Size(); ++i)
+	for (size_t i = 0; i < astrFiles.Size(); ++i)
 	{
 		CPath strFile = astrFiles[i];
 
@@ -401,6 +401,8 @@ void CAppCmds::OnEditRemoveFile()
 	// Remove from collection.
 	pDoc->m_aoFiles.erase(std::find(pDoc->m_aoFiles.begin(), pDoc->m_aoFiles.end(), pFileProps));
 	pDoc->m_bModified = true;
+
+	delete pFileProps;
 
 	// Refresh view.
 	pView->RefreshFileList();
