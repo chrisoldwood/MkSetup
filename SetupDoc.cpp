@@ -111,16 +111,16 @@ bool CSetupDoc::Load()
 
 		// File does not exist?
 		if (!m_Path.Exists())
-			throw CFileException(CFileException::E_PATH_INVALID, m_Path);
+			throw CFileException(CFileException::E_PATH_INVALID, m_Path, ERROR_PATH_NOT_FOUND);
 
 		// Read the .ini file version.
 		CString strVer = oScript.ReadString(TXT("Version"), TXT("Version"), TXT(""));
 
 		if (strVer == TXT(""))
-			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
+			throw CFileException(CFileException::E_FORMAT_INVALID, m_Path, ERROR_FILE_CORRUPT);
 
 		if ( (strVer != FILE_VER_12) && (strVer != FILE_VER_11) && (strVer != FILE_VER_10) )
-			throw CFileException(CFileException::E_VERSION_INVALID, m_Path);
+			throw CFileException(CFileException::E_VERSION_INVALID, m_Path, ERROR_FILE_CORRUPT);
 
 		// Force write, if old format.
 		if (strVer != CUR_FILE_VER)
@@ -160,7 +160,7 @@ bool CSetupDoc::Load()
 
 			// Must have at least a filename.
 			if ( (astrFields.Size() < 1) || (astrFields[0] == TXT("")) )
-				throw CFileException(CFileException::E_FORMAT_INVALID, m_Path);
+				throw CFileException(CFileException::E_FORMAT_INVALID, m_Path, ERROR_FILE_CORRUPT);
 
 			// Create file props object and add to collection.
 			CFileProps* pFileProps = new CFileProps(astrFields[0]);
@@ -270,7 +270,7 @@ bool CSetupDoc::Save()
 
 		// File is read-only?
 		if ( (m_Path.Exists()) && (m_Path.ReadOnly()) )
-			throw CFileException(CFileException::E_READ_ONLY, m_Path);
+			throw CFileException(CFileException::E_READ_ONLY, m_Path, ERROR_ACCESS_DENIED);
 
 		// Read the .ini file version.
 		oScript.WriteString(TXT("Version"), TXT("Version"), CUR_FILE_VER);
