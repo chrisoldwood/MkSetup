@@ -1,0 +1,84 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MkSetup", "MkSetup\MkSetup.vcproj", "{9F324A70-2F25-433C-BCE6-865A91F74328}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "Setup\Setup.vcproj", "{E7E3A261-54BD-4117-8B0E-154828DD2F0D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Lib\Core\Core.vcproj", "{790BC113-52FB-4565-8968-79B8B011C520}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wcl", "Lib\WCL\Wcl.vcproj", "{9B0335B6-93BE-4604-8497-27431874D758}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Legacy", "Lib\Legacy\Legacy.vcproj", "{AED77F84-49CF-4B84-B319-2D07025ECA06}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 6
+		SccLocalPath0 = .
+		CanCheckoutShared = true
+		SolutionUniqueID = {ACD20DF1-1E5A-4BDA-A256-660A6E1FB3EB}
+		SccProjectUniqueName1 = MkSetup\\MkSetup.vcproj
+		SccProjectName1 = \u0022$/Win32/MkSetup\u0022,\u0020YLDAAAAA
+		SccLocalPath1 = MkSetup
+		CanCheckoutShared = true
+		SccProjectUniqueName2 = Setup\\Setup.vcproj
+		SccProjectName2 = \u0022$/Win32/Setup\u0022,\u0020IIDAAAAA
+		SccLocalPath2 = Setup
+		CanCheckoutShared = true
+		SccProjectUniqueName3 = Lib\\Core\\Core.vcproj
+		SccProjectName3 = \u0022$/Win32/Lib/Core\u0022,\u0020QWDAAAAA
+		SccLocalPath3 = Lib\\Core
+		CanCheckoutShared = true
+		SccProjectUniqueName4 = Lib\\WCL\\Wcl.vcproj
+		SccProjectName4 = \u0022$/Win32/Lib/WCL\u0022,\u0020HPAAAAAA
+		SccLocalPath4 = Lib\\WCL
+		CanCheckoutShared = true
+		SccProjectUniqueName5 = Lib\\Legacy\\Legacy.vcproj
+		SccProjectName5 = \u0022$/Win32/Lib/Legacy\u0022,\u0020JHEAAAAA
+		SccLocalPath5 = Lib\\Legacy
+		CanCheckoutShared = true
+	EndGlobalSection
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{9F324A70-2F25-433C-BCE6-865A91F74328}.Debug.ActiveCfg = Debug|Win32
+		{9F324A70-2F25-433C-BCE6-865A91F74328}.Debug.Build.0 = Debug|Win32
+		{9F324A70-2F25-433C-BCE6-865A91F74328}.Release.ActiveCfg = Release|Win32
+		{9F324A70-2F25-433C-BCE6-865A91F74328}.Release.Build.0 = Release|Win32
+		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Debug.ActiveCfg = Debug|Win32
+		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Debug.Build.0 = Debug|Win32
+		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Release.ActiveCfg = Release|Win32
+		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Release.Build.0 = Release|Win32
+		{790BC113-52FB-4565-8968-79B8B011C520}.Debug.ActiveCfg = Debug|Win32
+		{790BC113-52FB-4565-8968-79B8B011C520}.Debug.Build.0 = Debug|Win32
+		{790BC113-52FB-4565-8968-79B8B011C520}.Release.ActiveCfg = Release|Win32
+		{790BC113-52FB-4565-8968-79B8B011C520}.Release.Build.0 = Release|Win32
+		{9B0335B6-93BE-4604-8497-27431874D758}.Debug.ActiveCfg = Debug|Win32
+		{9B0335B6-93BE-4604-8497-27431874D758}.Debug.Build.0 = Debug|Win32
+		{9B0335B6-93BE-4604-8497-27431874D758}.Release.ActiveCfg = Release|Win32
+		{9B0335B6-93BE-4604-8497-27431874D758}.Release.Build.0 = Release|Win32
+		{AED77F84-49CF-4B84-B319-2D07025ECA06}.Debug.ActiveCfg = Debug|Win32
+		{AED77F84-49CF-4B84-B319-2D07025ECA06}.Debug.Build.0 = Debug|Win32
+		{AED77F84-49CF-4B84-B319-2D07025ECA06}.Release.ActiveCfg = Release|Win32
+		{AED77F84-49CF-4B84-B319-2D07025ECA06}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
