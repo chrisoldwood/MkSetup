@@ -243,7 +243,7 @@ bool CSetupDoc::Load()
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(TXT("%s"), e.ErrorText());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.What());
 		return false;
 	}
 
@@ -371,7 +371,7 @@ bool CSetupDoc::Save()
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(TXT("%s"), e.ErrorText());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.What());
 		return false;
 	}
 
