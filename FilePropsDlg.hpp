@@ -17,9 +17,7 @@
 #endif
 
 #include <WCL/CommonUI.hpp>
-
-// Forward declarations.
-class CFileProps;
+#include "FileProps.hpp"
 
 /******************************************************************************
 ** 
@@ -39,7 +37,7 @@ public:
 	//
 	// Members.
 	//
-	CFileProps*	m_pFileProps;
+	FilePropsPtr	m_pFileProps;
 	
 private:
 	//

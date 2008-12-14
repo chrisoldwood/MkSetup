@@ -10,7 +10,6 @@
 
 #include "Common.hpp"
 #include "SetupDoc.hpp"
-#include <Legacy/STLUtils.hpp>
 #include <WCL/IniFile.hpp>
 #include <WCL/FileException.hpp>
 #include "MkSetupApp.hpp"
@@ -70,8 +69,6 @@ CSetupDoc::CSetupDoc()
 
 CSetupDoc::~CSetupDoc()
 {
-	// Cleanup file list.
-	DeleteAll(m_aoFiles);
 }
 
 /******************************************************************************
@@ -163,7 +160,7 @@ bool CSetupDoc::Load()
 				throw CFileException(CFileException::E_FORMAT_INVALID, m_Path, ERROR_FILE_CORRUPT);
 
 			// Create file props object and add to collection.
-			CFileProps* pFileProps = new CFileProps(astrFields[0]);
+			FilePropsPtr pFileProps = FilePropsPtr(new CFileProps(astrFields[0]));
 
 			pFileProps->m_bProgIcon   = false;
 			pFileProps->m_bDeskIcon   = false;
@@ -211,11 +208,9 @@ bool CSetupDoc::Load()
 			strFileName = oScript.ReadString(TXT("Shortcuts"), strEntry, TXT(""));
 
 			// Find file and object and set flag.
-			CFileProps* pFileProps = FindFile(strFileName);
+			FilePropsPtr pFileProps = FindFile(strFileName);
 
-			ASSERT(pFileProps != NULL);
-
-			if (pFileProps != NULL)
+			if (pFileProps.Get() != nullptr)
 				pFileProps->m_bProgIcon = true;
 		}
 
@@ -232,11 +227,9 @@ bool CSetupDoc::Load()
 			strFileName = oScript.ReadString(TXT("DeskIcons"), strEntry, TXT(""));
 
 			// Find file and object and set flag.
-			CFileProps* pFileProps = FindFile(strFileName);
+			FilePropsPtr pFileProps = FindFile(strFileName);
 
-			ASSERT(pFileProps != NULL);
-
-			if (pFileProps != NULL)
+			if (pFileProps.Get() != nullptr)
 				pFileProps->m_bDeskIcon = true;
 		}
 	}
@@ -295,7 +288,7 @@ bool CSetupDoc::Save()
 
 		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
-			CFileProps* pFileProps = m_aoFiles[i];
+			FilePropsPtr pFileProps = m_aoFiles[i];
 
 			CString strEntry, strValue;
 
@@ -323,7 +316,7 @@ bool CSetupDoc::Save()
 
 		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
-			CFileProps* pFileProps = m_aoFiles[i];
+			FilePropsPtr pFileProps = m_aoFiles[i];
 
 			if (pFileProps->m_bProgIcon)
 			{
@@ -348,7 +341,7 @@ bool CSetupDoc::Save()
 
 		for (uint i = 0; i < m_aoFiles.size(); ++i)
 		{
-			CFileProps* pFileProps = m_aoFiles[i];
+			FilePropsPtr pFileProps = m_aoFiles[i];
 
 			if (pFileProps->m_bDeskIcon)
 			{
@@ -390,16 +383,16 @@ bool CSetupDoc::Save()
 *******************************************************************************
 */
 
-CFileProps* CSetupDoc::FindFile(const CString& strFileName)
+FilePropsPtr CSetupDoc::FindFile(const CString& strFileName)
 {
 	// For all files...
 	for (uint i = 0; i < m_aoFiles.size(); ++i)
 	{
-		CFileProps* pFileProps = m_aoFiles[i];
+		FilePropsPtr pFileProps = m_aoFiles[i];
 
 		if (pFileProps->m_strFileName == strFileName)
 			return pFileProps;
 	}
 
-	return NULL;
+	return FilePropsPtr();
 }

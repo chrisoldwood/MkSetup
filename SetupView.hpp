@@ -43,10 +43,10 @@ public:
 	// Methods.
 	//
 	bool        IsFileSelected() const;
-	CFileProps* GetSelection() const;
+	FilePropsPtr GetSelection() const;
 
 	void RefreshFileList();
-	void RefreshFile(const CFileProps* pFileProps);
+	void RefreshFile(const FilePropsPtr& pFileProps);
 
 private:	
 	//
@@ -81,6 +81,7 @@ private:
 	// Internal methods.
 	//
 	CSetupDoc& Doc();
+	const CSetupDoc& Doc() const;
 };
 
 /******************************************************************************
@@ -95,16 +96,14 @@ inline CSetupDoc& CSetupView::Doc()
 	return static_cast<CSetupDoc&>(m_Doc);
 }
 
+inline const CSetupDoc& CSetupView::Doc() const
+{
+	return static_cast<CSetupDoc&>(m_Doc);
+}
+
 inline bool CSetupView::IsFileSelected() const
 {
 	return m_lvFiles.IsSelection();
-}
-
-inline CFileProps* CSetupView::GetSelection() const
-{
-	ASSERT(IsFileSelected());
-
-	return static_cast<CFileProps*>(m_lvFiles.ItemPtr(m_lvFiles.Selection()));
 }
 
 #endif // SETUPVIEW_HPP

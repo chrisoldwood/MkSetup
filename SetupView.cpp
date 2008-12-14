@@ -12,6 +12,7 @@
 #include "SetupView.hpp"
 #include "MkSetupApp.hpp"
 #include "FileProps.hpp"
+#include <algorithm>
 
 /******************************************************************************
 ** Method:		Constructor.
@@ -131,10 +132,10 @@ void CSetupView::RefreshFileList()
 	// For all files...
 	for (CIter oIter = oDoc.m_aoFiles.begin(); oIter != oDoc.m_aoFiles.end(); ++oIter)
 	{
-		CFileProps* pFileProps = *oIter;
+		FilePropsPtr pFileProps = *oIter;
 
 		int n = m_lvFiles.AppendItem(pFileProps->m_strFileName);
-		m_lvFiles.ItemPtr(n, pFileProps);
+		m_lvFiles.ItemPtr(n, pFileProps.Get());
 
 		RefreshFile(pFileProps);
 	}
@@ -161,9 +162,9 @@ void CSetupView::RefreshFileList()
 *******************************************************************************
 */
 
-void CSetupView::RefreshFile(const CFileProps* pFileProps)
+void CSetupView::RefreshFile(const FilePropsPtr& pFileProps)
 {
-	int nItem = m_lvFiles.FindItem(pFileProps);
+	int nItem = m_lvFiles.FindItem(pFileProps.Get());
 
 	ASSERT(nItem != LB_ERR);
 
@@ -231,4 +232,38 @@ LRESULT CSetupView::OnListDoubleClick(NMHDR& /*oHdr*/)
 void CSetupView::OnFocus()
 {
 	m_lvFiles.Focus();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//! The functor used to find a file in a file list by its raw pointer.
+
+struct IsFileProp : public std::unary_function<FilePropsPtr, bool>
+{
+	CFileProps* m_item;
+
+	IsFileProp(CFileProps* item)
+		: m_item(item)
+	{
+	}
+
+	result_type operator()(const argument_type& arg)
+	{
+		return (arg.Get() == m_item);
+	}
+};
+
+////////////////////////////////////////////////////////////////////////////////
+//! Get the selected file.
+
+FilePropsPtr CSetupView::GetSelection() const
+{
+	ASSERT(IsFileSelected());
+
+	size_t      selection = m_lvFiles.Selection();
+	CFileProps* itemData  = static_cast<CFileProps*>(m_lvFiles.ItemPtr(selection));
+
+	const CSetupDoc::CFileList& files = Doc().m_aoFiles;
+	CSetupDoc::CFileList::const_iterator it = std::find_if(files.begin(), files.end(), IsFileProp(itemData));
+
+	return *it;
 }

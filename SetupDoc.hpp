@@ -17,9 +17,7 @@
 #endif
 
 #include <WCL/SDIDoc.hpp>
-
-// Forward declarations.
-class CFileProps;
+#include "FileProps.hpp"
 
 /******************************************************************************
 ** 
@@ -48,10 +46,10 @@ public:
 	//
 	// Helper methods.
 	//
-	CFileProps* FindFile(const CString& strFileName);
+	FilePropsPtr FindFile(const CString& strFileName);
 
 	// Template shorthands.
-	typedef std::vector<CFileProps*> CFileList;
+	typedef std::vector<FilePropsPtr> CFileList;
 
 	//
 	// Members.

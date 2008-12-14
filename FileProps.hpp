@@ -44,6 +44,9 @@ public:
 	CString	m_strIconDesc;		// Shortcut description.
 };
 
+//! The default CFileProps smart-pointer type.
+typedef Core::SharedPtr<CFileProps> FilePropsPtr;
+
 /******************************************************************************
 **
 ** Implementation of inline functions.

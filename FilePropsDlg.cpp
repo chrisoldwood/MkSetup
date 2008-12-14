@@ -57,7 +57,7 @@ CFilePropsDlg::CFilePropsDlg()
 
 void CFilePropsDlg::OnInitDialog()
 {
-	ASSERT(m_pFileProps != NULL);
+	ASSERT(m_pFileProps.Get() != nullptr);
 
 	// Initialise controls.
 	m_ebFileName.Text(m_pFileProps->m_strFileName);

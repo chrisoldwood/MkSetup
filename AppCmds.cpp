@@ -267,7 +267,7 @@ void CAppCmds::OnEditAddFile()
 	App.m_strLastDir = strFile.Directory();
 
 	// Create file props object.
-	CFileProps* pFileProps = new CFileProps(strFile.FileName());
+	FilePropsPtr pFileProps = FilePropsPtr(new CFileProps(strFile.FileName()));
 
 	// Add to document.
 	pDoc->m_aoFiles.push_back(pFileProps);
@@ -315,7 +315,7 @@ void CAppCmds::OnEditAddFiles()
 		CPath strFile = astrFiles[i];
 
 		// Create file props object.
-		CFileProps* pFileProps = new CFileProps(strFile.FileName());
+		FilePropsPtr pFileProps = FilePropsPtr(new CFileProps(strFile.FileName()));
 
 		// Add to document.
 		pDoc->m_aoFiles.push_back(pFileProps);
@@ -353,9 +353,9 @@ void CAppCmds::OnEditFileProps()
 	CSetupView* pView = App.View();
 
 	// Get selected file.
-	CFileProps* pFileProps = pView->GetSelection();
+	FilePropsPtr pFileProps = pView->GetSelection();
 
-	ASSERT(pFileProps != NULL);
+	ASSERT(pFileProps.Get() != nullptr);
 
 	CFilePropsDlg Dlg;
 
@@ -394,15 +394,13 @@ void CAppCmds::OnEditRemoveFile()
 	CSetupView* pView = App.View();
 
 	// Get selected file.
-	CFileProps* pFileProps = pView->GetSelection();
+	FilePropsPtr pFileProps = pView->GetSelection();
 
-	ASSERT(pFileProps != NULL);
+	ASSERT(pFileProps.Get() != nullptr);
 
 	// Remove from collection.
 	pDoc->m_aoFiles.erase(std::find(pDoc->m_aoFiles.begin(), pDoc->m_aoFiles.end(), pFileProps));
 	pDoc->m_bModified = true;
-
-	delete pFileProps;
 
 	// Refresh view.
 	pView->RefreshFileList();
