@@ -210,7 +210,7 @@ bool CSetupDoc::Load()
 			// Find file and object and set flag.
 			FilePropsPtr pFileProps = FindFile(strFileName);
 
-			if (pFileProps.Get() != nullptr)
+			if (pFileProps.get() != nullptr)
 				pFileProps->m_bProgIcon = true;
 		}
 
@@ -229,14 +229,14 @@ bool CSetupDoc::Load()
 			// Find file and object and set flag.
 			FilePropsPtr pFileProps = FindFile(strFileName);
 
-			if (pFileProps.Get() != nullptr)
+			if (pFileProps.get() != nullptr)
 				pFileProps->m_bDeskIcon = true;
 		}
 	}
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(TXT("%s"), e.What());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.twhat());
 		return false;
 	}
 
@@ -364,7 +364,7 @@ bool CSetupDoc::Save()
 	catch (CFileException& e)
 	{
 		// Notify user.
-		App.m_AppWnd.AlertMsg(TXT("%s"), e.What());
+		App.m_AppWnd.AlertMsg(TXT("%s"), e.twhat());
 		return false;
 	}
 

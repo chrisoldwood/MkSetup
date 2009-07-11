@@ -355,7 +355,7 @@ void CAppCmds::OnEditFileProps()
 	// Get selected file.
 	FilePropsPtr pFileProps = pView->GetSelection();
 
-	ASSERT(pFileProps.Get() != nullptr);
+	ASSERT(pFileProps.get() != nullptr);
 
 	CFilePropsDlg Dlg;
 
@@ -396,7 +396,7 @@ void CAppCmds::OnEditRemoveFile()
 	// Get selected file.
 	FilePropsPtr pFileProps = pView->GetSelection();
 
-	ASSERT(pFileProps.Get() != nullptr);
+	ASSERT(pFileProps.get() != nullptr);
 
 	// Remove from collection.
 	pDoc->m_aoFiles.erase(std::find(pDoc->m_aoFiles.begin(), pDoc->m_aoFiles.end(), pFileProps));
