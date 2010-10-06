@@ -3,10 +3,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MkSetup", "MkSetup.vcproj",
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Setup", "..\Setup\Setup.vcproj", "{E7E3A261-54BD-4117-8B0E-154828DD2F0D}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Lib\Core\Core.vcproj", "{790BC113-52FB-4565-8968-79B8B011C520}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
@@ -24,29 +20,25 @@ Global
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 5
 		SccProjectUniqueName0 = MkSetup.vcproj
 		SccLocalPath0 = .
 		CanCheckoutShared = true
-		SccProjectUniqueName1 = ..\\Setup\\Setup.vcproj
-		SccProjectName1 = \u0022$/Win32/Setup\u0022,\u0020IIDAAAAA
-		SccLocalPath1 = ..\\Setup
+		SccProjectUniqueName1 = ..\\Lib\\Core\\Core.vcproj
+		SccProjectName1 = \u0022$/Win32/Lib/Core\u0022,\u0020QWDAAAAA
+		SccLocalPath1 = ..\\Lib\\Core
 		CanCheckoutShared = true
-		SccProjectUniqueName2 = ..\\Lib\\Core\\Core.vcproj
-		SccProjectName2 = \u0022$/Win32/Lib/Core\u0022,\u0020QWDAAAAA
-		SccLocalPath2 = ..\\Lib\\Core
+		SccProjectUniqueName2 = ..\\Lib\\WCL\\Wcl.vcproj
+		SccProjectName2 = \u0022$/Win32/Lib/WCL\u0022,\u0020HPAAAAAA
+		SccLocalPath2 = ..\\Lib\\WCL
 		CanCheckoutShared = true
-		SccProjectUniqueName3 = ..\\Lib\\WCL\\Wcl.vcproj
-		SccProjectName3 = \u0022$/Win32/Lib/WCL\u0022,\u0020HPAAAAAA
-		SccLocalPath3 = ..\\Lib\\WCL
+		SccProjectUniqueName3 = ..\\Lib\\Legacy\\Legacy.vcproj
+		SccProjectName3 = \u0022$/Win32/Lib/Legacy\u0022,\u0020JHEAAAAA
+		SccLocalPath3 = ..\\Lib\\Legacy
 		CanCheckoutShared = true
-		SccProjectUniqueName4 = ..\\Lib\\Legacy\\Legacy.vcproj
-		SccProjectName4 = \u0022$/Win32/Lib/Legacy\u0022,\u0020JHEAAAAA
-		SccLocalPath4 = ..\\Lib\\Legacy
+		SccLocalPath4 = .
 		CanCheckoutShared = true
-		SccLocalPath5 = .
-		CanCheckoutShared = true
-		SolutionUniqueID = {F0EEECA7-B968-4E9D-9DBD-01BFE9D977C8}
+		SolutionUniqueID = {2BF13202-944C-4AED-8432-451D04A9AE3B}
 	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -59,10 +51,6 @@ Global
 		{9F324A70-2F25-433C-BCE6-865A91F74328}.Debug.Build.0 = Debug|Win32
 		{9F324A70-2F25-433C-BCE6-865A91F74328}.Release.ActiveCfg = Release|Win32
 		{9F324A70-2F25-433C-BCE6-865A91F74328}.Release.Build.0 = Release|Win32
-		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Debug.ActiveCfg = Debug|Win32
-		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Debug.Build.0 = Debug|Win32
-		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Release.ActiveCfg = Release|Win32
-		{E7E3A261-54BD-4117-8B0E-154828DD2F0D}.Release.Build.0 = Release|Win32
 		{790BC113-52FB-4565-8968-79B8B011C520}.Debug.ActiveCfg = Debug|Win32
 		{790BC113-52FB-4565-8968-79B8B011C520}.Debug.Build.0 = Debug|Win32
 		{790BC113-52FB-4565-8968-79B8B011C520}.Release.ActiveCfg = Release|Win32
