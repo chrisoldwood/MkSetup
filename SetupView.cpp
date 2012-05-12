@@ -134,7 +134,7 @@ void CSetupView::RefreshFileList()
 	{
 		FilePropsPtr pFileProps = *oIter;
 
-		int n = m_lvFiles.AppendItem(pFileProps->m_strFileName);
+		size_t n = m_lvFiles.AppendItem(pFileProps->m_strFileName);
 		m_lvFiles.ItemPtr(n, pFileProps.get());
 
 		RefreshFile(pFileProps);
@@ -164,7 +164,7 @@ void CSetupView::RefreshFileList()
 
 void CSetupView::RefreshFile(const FilePropsPtr& pFileProps)
 {
-	int nItem = m_lvFiles.FindItem(pFileProps.get());
+	size_t nItem = m_lvFiles.FindItem(pFileProps.get());
 
 	ASSERT(nItem != LB_ERR);
 

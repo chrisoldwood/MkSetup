@@ -78,7 +78,7 @@ void CProjCfgDlg::OnInitDialog()
 	m_cbRoot.Add(TXT("%Temp%"));
 
 	// Select destination folder, adding it if a custom one.
-	int nFolder = m_cbRoot.FindExact(m_pDoc->m_strDefRoot);
+	size_t nFolder = m_cbRoot.FindExact(m_pDoc->m_strDefRoot);
 
 	if (nFolder == CB_ERR)
 		nFolder = m_cbRoot.Add(m_pDoc->m_strDefRoot);

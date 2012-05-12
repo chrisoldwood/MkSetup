@@ -73,7 +73,7 @@ void CFilePropsDlg::OnInitDialog()
 	m_cbFolder.Add(TXT("%Temp%"));
 
 	// Select destination folder, adding it if a custom one.
-	int nFolder = m_cbFolder.FindExact(m_pFileProps->m_strFolder);
+	size_t nFolder = m_cbFolder.FindExact(m_pFileProps->m_strFolder);
 
 	if (nFolder == CB_ERR)
 		nFolder = m_cbFolder.Add(m_pFileProps->m_strFolder);
