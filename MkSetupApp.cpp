@@ -49,6 +49,8 @@ const tchar* CMakeSetupApp::INI_FILE_VER = TXT("1.0");
 
 CMakeSetupApp::CMakeSetupApp()
 	: CSDIApp(m_AppWnd, m_AppCmds, CAppCmds::NUM_MRU_CMDS)
+	, m_AppWnd(m_MainThread, m_AppCmds)
+	, m_AppCmds()
 	, m_strLastDir(CPath::CurrentDir())
 {
 
@@ -88,9 +90,6 @@ bool CMakeSetupApp::OnOpen()
 	// Set the app title.
 	m_strTitle = TXT("Make Setup");
 
-	// Load the toolbar bitmap.
-	m_rCmdControl.CmdBitmap().LoadRsc(IDR_APPTOOLBAR);
-
 	// Set the .INI file path.
 	m_oIniFile.m_strPath = CPath::ApplicationDir() / TXT("MkSetup.ini");
 
@@ -112,7 +111,7 @@ bool CMakeSetupApp::OnOpen()
 	m_AppWnd.Show(m_iCmdShow);
 
 	// Update UI.
-	m_AppCmds.UpdateUI();
+	m_AppCmds.InitialiseUI();
 
 	return CSDIApp::OnOpen();
 }

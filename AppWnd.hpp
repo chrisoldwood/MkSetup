@@ -35,7 +35,7 @@ public:
 	//
 	// Constructors/Destructor.
 	//
-	CAppWnd();
+	CAppWnd(WCL::IMsgThread& thread, WCL::ICmdController& controller);
 	~CAppWnd();
 
 	//

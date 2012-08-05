@@ -42,6 +42,7 @@ static tchar g_szDefExt[] = { TXT("") };
 */
 
 CAppCmds::CAppCmds()
+	: CSDICmds(IDR_APPTOOLBAR)
 {
 	// Define the command table.
 	DEFINE_CMD_TABLE

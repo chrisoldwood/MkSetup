@@ -24,8 +24,9 @@
 *******************************************************************************
 */
 
-CAppWnd::CAppWnd()
+CAppWnd::CAppWnd(WCL::IMsgThread& thread, WCL::ICmdController& controller)
 	: CSDIFrame(IDR_APPICON)
+	, m_ToolBar(thread, controller)
 {
 }
 
