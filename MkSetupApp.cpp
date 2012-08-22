@@ -50,7 +50,7 @@ const tchar* CMakeSetupApp::INI_FILE_VER = TXT("1.0");
 CMakeSetupApp::CMakeSetupApp()
 	: CSDIApp(m_AppWnd, m_AppCmds, CAppCmds::NUM_MRU_CMDS)
 	, m_AppWnd(m_MainThread, m_AppCmds)
-	, m_AppCmds()
+	, m_AppCmds(m_AppWnd)
 	, m_strLastDir(CPath::CurrentDir())
 {
 
@@ -104,7 +104,7 @@ bool CMakeSetupApp::OnOpen()
 		return false;
 
 	// Move to last position.
-	if (ShowNormal() && !m_rcAppWnd.Empty())
+	if (!m_rcAppWnd.Empty())
 		m_AppWnd.Move(m_rcAppWnd);
 
 	// Show it.
