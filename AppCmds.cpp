@@ -47,13 +47,13 @@ CAppCmds::CAppCmds(CAppWnd& appWnd)
 	// Define the command table.
 	DEFINE_CMD_TABLE
 		// File menu.
-		CMD_ENTRY(ID_FILE_NEW,					&CAppCmds::OnFileNew,			NULL,							 0)
-		CMD_ENTRY(ID_FILE_OPEN,					&CAppCmds::OnFileOpen,			NULL,							 1)
+		CMD_ENTRY(ID_FILE_NEW,					&CAppCmds::OnFileNew,			nullptr,						 0)
+		CMD_ENTRY(ID_FILE_OPEN,					&CAppCmds::OnFileOpen,			nullptr,						 1)
 		CMD_ENTRY(ID_FILE_SAVE,					&CAppCmds::OnFileSave,			&CAppCmds::OnUIFileSave,		 2)
 		CMD_ENTRY(ID_FILE_SAVEAS,				&CAppCmds::OnFileSaveAs,		&CAppCmds::OnUIFileSaveAs,		-1)
 		CMD_ENTRY(ID_FILE_CLOSE,				&CAppCmds::OnFileClose,			&CAppCmds::OnUIFileClose,		 1)
 		CMD_RANGE(ID_MRU_FIRST,	ID_MRU_LAST,	&CAppCmds::OnFileOpenMRU,		&CAppCmds::OnUIFileOpenMRU,		-1)
-		CMD_ENTRY(ID_FILE_EXIT,					&CAppCmds::OnFileExit,			NULL,							-1)
+		CMD_ENTRY(ID_FILE_EXIT,					&CAppCmds::OnFileExit,			nullptr,						-1)
 		// File menu.
 		CMD_ENTRY(ID_EDIT_ADD,					&CAppCmds::OnEditAddFile,		&CAppCmds::OnUIEditAddFile,		-1)
 		CMD_ENTRY(ID_EDIT_ADD_MANY,				&CAppCmds::OnEditAddFiles,		&CAppCmds::OnUIEditAddFiles,	-1)
@@ -61,7 +61,7 @@ CAppCmds::CAppCmds(CAppWnd& appWnd)
 		CMD_ENTRY(ID_EDIT_REMOVE,				&CAppCmds::OnEditRemoveFile,	&CAppCmds::OnUIEditRemoveFile,	-1)
 		CMD_ENTRY(ID_EDIT_PROJ_CFG,				&CAppCmds::OnEditProjCfg,		&CAppCmds::OnUIEditProjCfg,		-1)
 		// Help menu.
-		CMD_ENTRY(ID_HELP_ABOUT,				&CAppCmds::OnHelpAbout,			NULL,							10)
+		CMD_ENTRY(ID_HELP_ABOUT,				&CAppCmds::OnHelpAbout,			nullptr,						10)
 	END_CMD_TABLE
 }
 
@@ -252,7 +252,7 @@ void CAppCmds::OnFileExit()
 
 void CAppCmds::OnEditAddFile()
 {
-	ASSERT(App.Doc() != NULL);
+	ASSERT(App.Doc() != nullptr);
 
 	// Get doc and view.
 	CSetupDoc*  pDoc  = App.Doc();
@@ -294,7 +294,7 @@ void CAppCmds::OnEditAddFile()
 
 void CAppCmds::OnEditAddFiles()
 {
-	ASSERT(App.Doc() != NULL);
+	ASSERT(App.Doc() != nullptr);
 
 	// Get doc and view.
 	CSetupDoc*  pDoc  = App.Doc();
@@ -347,7 +347,7 @@ void CAppCmds::OnEditAddFiles()
 
 void CAppCmds::OnEditFileProps()
 {
-	ASSERT(App.Doc() != NULL);
+	ASSERT(App.Doc() != nullptr);
 
 	// Get doc and view.
 	CSetupDoc*  pDoc  = App.Doc();
@@ -388,7 +388,7 @@ void CAppCmds::OnEditFileProps()
 
 void CAppCmds::OnEditRemoveFile()
 {
-	ASSERT(App.Doc() != NULL);
+	ASSERT(App.Doc() != nullptr);
 
 	// Get doc and view.
 	CSetupDoc*  pDoc  = App.Doc();
@@ -423,7 +423,7 @@ void CAppCmds::OnEditRemoveFile()
 
 void CAppCmds::OnEditProjCfg()
 {
-	ASSERT(App.Doc() != NULL);
+	ASSERT(App.Doc() != nullptr);
 
 	CProjCfgDlg Dlg;
 
@@ -468,7 +468,7 @@ void CAppCmds::OnHelpAbout()
 
 void CAppCmds::OnUIFileSave()
 {
-	bool bDocOpen  = (App.m_pDoc != NULL);
+	bool bDocOpen  = (App.m_pDoc != nullptr);
 	bool bModified = (bDocOpen && App.m_pDoc->Modified());
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_FILE_SAVE, (bDocOpen && bModified));
@@ -477,14 +477,14 @@ void CAppCmds::OnUIFileSave()
 
 void CAppCmds::OnUIFileSaveAs()
 {
-	bool bDocOpen = (App.m_pDoc != NULL);
+	bool bDocOpen = (App.m_pDoc != nullptr);
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_FILE_SAVEAS, bDocOpen);
 }
 
 void CAppCmds::OnUIFileClose()
 {
-	bool bDocOpen = (App.m_pDoc != NULL);
+	bool bDocOpen = (App.m_pDoc != nullptr);
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_FILE_CLOSE, bDocOpen);
 }
@@ -496,37 +496,37 @@ void CAppCmds::OnUIFileOpenMRU()
 
 void CAppCmds::OnUIEditAddFile()
 {
-	bool bDocOpen = (App.m_pDoc != NULL);
+	bool bDocOpen = (App.m_pDoc != nullptr);
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_EDIT_ADD, bDocOpen);
 }
 
 void CAppCmds::OnUIEditAddFiles()
 {
-	bool bDocOpen = (App.m_pDoc != NULL);
+	bool bDocOpen = (App.m_pDoc != nullptr);
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_EDIT_ADD_MANY, bDocOpen);
 }
 
 void CAppCmds::OnUIEditFileProps()
 {
-	bool bDocOpen = (App.m_pDoc  != NULL);
-	bool bIsSel   = (App.m_pView != NULL) && (App.View()->IsFileSelected());
+	bool bDocOpen = (App.m_pDoc  != nullptr);
+	bool bIsSel   = (App.m_pView != nullptr) && (App.View()->IsFileSelected());
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_EDIT_PROPS, bDocOpen && bIsSel);
 }
 
 void CAppCmds::OnUIEditRemoveFile()
 {
-	bool bDocOpen = (App.m_pDoc  != NULL);
-	bool bIsSel   = (App.m_pView != NULL) && (App.View()->IsFileSelected());
+	bool bDocOpen = (App.m_pDoc  != nullptr);
+	bool bIsSel   = (App.m_pView != nullptr) && (App.View()->IsFileSelected());
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_EDIT_REMOVE, bDocOpen && bIsSel);
 }
 
 void CAppCmds::OnUIEditProjCfg()
 {
-	bool bDocOpen = (App.m_pDoc != NULL);
+	bool bDocOpen = (App.m_pDoc != nullptr);
 
 	App.m_AppWnd.m_Menu.EnableCmd(ID_EDIT_PROJ_CFG, bDocOpen);
 }

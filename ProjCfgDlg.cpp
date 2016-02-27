@@ -26,7 +26,7 @@
 
 CProjCfgDlg::CProjCfgDlg()
 	: CDialog(IDD_PROJ_CFG)
-	, m_pDoc(NULL)
+	, m_pDoc(nullptr)
 {
 	DEFINE_CTRL_TABLE
 		CTRL(IDC_TITLE,		&m_ebTitle   )
@@ -59,7 +59,7 @@ CProjCfgDlg::CProjCfgDlg()
 
 void CProjCfgDlg::OnInitDialog()
 {
-	ASSERT(m_pDoc != NULL);
+	ASSERT(m_pDoc != nullptr);
 
 	// Initialise simple controls.
 	m_ebTitle.Text(m_pDoc->m_strTitle);

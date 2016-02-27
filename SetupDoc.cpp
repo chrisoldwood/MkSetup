@@ -233,7 +233,7 @@ bool CSetupDoc::Load()
 				pFileProps->m_bDeskIcon = true;
 		}
 	}
-	catch (CFileException& e)
+	catch (const CFileException& e)
 	{
 		// Notify user.
 		App.m_AppWnd.AlertMsg(TXT("%s"), e.twhat());
@@ -361,7 +361,7 @@ bool CSetupDoc::Save()
 		// Reset status.
 		m_bModified = false;
 	}
-	catch (CFileException& e)
+	catch (const CFileException& e)
 	{
 		// Notify user.
 		App.m_AppWnd.AlertMsg(TXT("%s"), e.twhat());
@@ -378,7 +378,7 @@ bool CSetupDoc::Save()
 **
 ** Parameters:	strFileName		The file to find.
 **
-** Returns:		The file object or NULL.
+** Returns:		The file object or an empty pointer.
 **
 *******************************************************************************
 */

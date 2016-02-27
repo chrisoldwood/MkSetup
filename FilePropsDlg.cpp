@@ -26,7 +26,7 @@
 
 CFilePropsDlg::CFilePropsDlg()
 	: CDialog(IDD_FILE_PROPS)
-	, m_pFileProps(NULL)
+	, m_pFileProps(nullptr)
 {
 	DEFINE_CTRL_TABLE
 		CTRL(IDC_FILE_NAME, &m_ebFileName)

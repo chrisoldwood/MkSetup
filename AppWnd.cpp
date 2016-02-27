@@ -114,6 +114,6 @@ bool CAppWnd::OnQueryClose()
 
 void CAppWnd::OnActivate(bool bActivating)
 {
-	if ( (bActivating) && (m_pView != NULL) )
+	if ( (bActivating) && (m_pView != nullptr) )
 		m_pView->Focus();
 }
